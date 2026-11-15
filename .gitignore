@@ -30,6 +30,7 @@ Thumbs.db
 
 # Local tooling and generated reports (not package content)
 .workbuddy/
+.codebuddy/
 .skill-upgrade/
 AUDIT-*.md
 REVIEW-*.md
