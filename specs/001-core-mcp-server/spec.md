@@ -7,8 +7,8 @@
 
 **Feature Branch**: `001-core-mcp-server`
 **Created**: 2026-11-16
-**Status**: Draft — SDD Step 1 (`specify`) 产物，待人工评审
-**Protocol Target**: MCP `2026-07-28`（无状态版）
+**Status**: Draft — SDD Step 1 (`specify`) 产物，澄清（`/clarify`）已于 2026-11-16 完成，待人工评审
+**Protocol Target**: MCP `2026-07-28`（无状态版）为主目标；按宿主声明的协议版本协商，兼容 MCP 官方全部已发布历史版本（见 Clarified Decisions Q5）
 **Input**: 制作一个 AI 虚拟公司插件，保存在独立项目文件夹，发布至 GitHub 并包含社区规范文件，采用 SDD + ATDD；宿主为通用 MCP / Agent SDK（框架无关）；先竞品调研，再执行 SDD 第一步。
 **Research Input**: `docs/research/competitive-analysis.md`（决策 D1–D7）
 
@@ -95,17 +95,17 @@
 
 ### Functional Requirements（EARS 语法；`the server shall …`）
 
-- **FR-001**: The server shall implement the mandatory `server/discover` request and advertise supported protocol versions and capabilities.（对齐 MCP `2026-07-28`，无 `initialize` 握手）
+- **FR-001**: The server shall implement the mandatory `server/discover` request and advertise supported protocol versions and capabilities.（主目标 MCP `2026-07-28`，无 `initialize` 握手；`supportedVersions` 列出全部受支持的历史版本，见 FR-011）
 - **FR-002**: The server shall expose at least one tool, one resource, and one prompt, each discoverable through its `*/list` method.
 - **FR-003**: When a client calls `company.route` with a task description, the server shall return a deterministic `RoutingDecision` without any LLM call.
-- **FR-004**: The server shall ship a versioned department registry resource containing domain and department slugs. [NEEDS CLARIFICATION: v0.1 是复用同源基线的 18 部门 / 7 域枚举，还是定义更小的启动集合？→ Q2]
+- **FR-004**: The server shall ship a versioned department registry resource containing domain and department slugs, with five built-in size profiles switchable via configuration (`micro` = 2 departments, `small` = 5, `medium` = 9, `large` = 18, `group` = 36); all five profiles ship in v0.1 and the default profile is `micro`.（Clarified Decisions Q2）
 - **FR-005**: If no registry keyword matches, then the server shall return a `fallback` decision with `confidence: 0` and a `NEEDS_CLARIFICATION` marker, never a fabricated department.
 - **FR-006**: The server shall perform no network I/O, no LLM API calls, no filesystem writes, no subprocess execution, and no telemetry in v0.1.
 - **FR-007**: Where a tool has side effects, the server shall require an explicit human approval obtained via `elicitation/create` before execution.
-- **FR-008**: When an approved side-effecting call completes, the server shall emit an `AuditRecord` with trace ID, UTC timestamp, actor, and AIGC label. [NEEDS CLARIFICATION: 审计下沉到宿主提供的 append-only 日志，还是 v0.1 仅内存返回？→ Q3]
+- **FR-008**: When an approved side-effecting call completes, the server shall emit an `AuditRecord` with trace ID, UTC timestamp, actor, and AIGC label, returned in-memory with the response only; v0.1 performs no audit persistence or host-side append-only log sinking.（Clarified Decisions Q3）
 - **FR-009**: While operating in default read-only mode, the server shall reject every mutating tool with a typed error code and produce no writes.
 - **FR-010**: The server shall support both `stdio` and `Streamable HTTP` transports with identical tool semantics.
-- **FR-011**: If a request carries an unsupported or missing `_meta.protocolVersion`, then the server shall reject it with `UnsupportedProtocolVersionError` listing supported versions.
+- **FR-011**: If a request carries an unsupported or missing `_meta.protocolVersion`, then the server shall reject it with `UnsupportedProtocolVersionError` listing the supported version range, which includes MCP `2026-07-28` as the primary target and all officially published historical MCP versions negotiated per the host's declaration.（Clarified Decisions Q5）
 - **FR-012**: When `company.spec.validate` receives a specification document, the server shall report missing mandatory sections, orphaned FR IDs, and duplicate AT IDs as a structured result.
 - **FR-013**: The server shall expose a `department-brief` prompt template containing no instructions that require external tools.
 - **FR-014**: The server shall return only documented, stable error codes from `company://error-codes`, never free-form exceptions.
@@ -127,10 +127,10 @@ ATDD 规则：下表每条 `AT-*` 在进入 `implement` 之前必须先写成**�
 
 | Scenario | Covers | Given / When / Then | Test layer | Status |
 | --- | --- | --- | --- | --- |
-| AT-001 | FR-001, FR-011 | Given stdio 客户端 / When `server/discover` 与非法版本请求 / Then 声明 `2026-07-28` 并拒绝非法版本 | protocol conformance | RED-PENDING |
+| AT-001 | FR-001, FR-011 | Given stdio 客户端 / When `server/discover`、携带已发布历史版本的请求与非法版本请求 / Then `supportedVersions` 含 `2026-07-28` 与全部受支持历史版本，历史版本可协商，非法版本被拒绝并列出支持范围 | protocol conformance | RED-PENDING |
 | AT-002 | FR-002, FR-010 | Given stdio 与 Streamable HTTP 两种传输 / When 列出三类原语并调用同一工具 / Then 结果一致 | dual-transport | RED-PENDING |
 | AT-003 | FR-003 | Given 固定任务描述 / When 调用 `company.route` 100 次 / Then 字节级一致且零 LLM 调用 | determinism | RED-PENDING |
-| AT-004 | FR-004 | Given 版本化部门注册表 / When 读取 `company://departments` / Then 域/部门 slug 完整且可解析 | registry | RED-PENDING |
+| AT-004 | FR-004 | Given 五档 profile（micro/small/medium/large/group）/ When 分别以各档配置读取 `company://departments` / Then 每档域/部门 slug 完整可解析且部门数分别为 2/5/9/18/36 | registry | RED-PENDING |
 | AT-005 | FR-005 | Given 无匹配关键词的输入 / When 路由 / Then `fallback` + `confidence: 0` | negative path | RED-PENDING |
 | AT-006 | FR-006 | Given 网络被阻断的测试夹具 / When 跑完整 v0.1 套件 / Then 零连接、零写盘、零子进程 | sandbox | RED-PENDING |
 | AT-007 | FR-007 | Given 变更型工具 / When 无 elicitation 批准令牌 / Then 拒绝且不执行 | approval gate | RED-PENDING |
@@ -154,19 +154,23 @@ ATDD 规则：下表每条 `AT-*` 在进入 `implement` 之前必须先写成**�
 ## Assumptions
 
 - MCP 宿主兼容 `2026-07-28`；宿主负责 LLM 调用、用户同意 UI 与工具展示安全（本服务不重复实现）。
-- v0.1 无持久化；审计默认随响应返回，持久化由宿主提供。
+- v0.1 无持久化；审计仅随响应内存返回，不做持久化下沉，也不依赖宿主 append-only 日志（Clarified Decisions Q3）。
 - v0.1 默认只读；任何写入必须显式批准（宪法级不可豁免）。
 - 标识符（slug、错误码、字段名、枚举值、文件路径、函数名）恒为英文，永不翻译；产品对外文件用英文，工作文档可用中文。
 - 尚无已发布版本；版本号从 `v0.1.0` 起按 SemVer 演进。
-- 运行时语言 / SDK、仓库 `{OWNER}` 尚未确定，见下方开放问题。
+- 运行时与 SDK 已决：TypeScript + `@modelcontextprotocol/sdk`（Clarified Decisions Q1）；仓库为 `JohnSmithfan/ai-company-mcp`，CODEOWNERS 句柄 `JohnSmithfan`（Clarified Decisions Q4）。
 
-## Open Questions（移交 `/clarify`，不得在 `implement` 中自行拍板）
+## Clarified Decisions（2026-11-16，维护者逐项拍板，原 Open Questions Q1–Q5）
 
-- **Q1**：运行时与 SDK 选 Python `mcp` SDK 还是 TypeScript `@modelcontextprotocol/sdk`？
-- **Q2**：v0.1 部门枚举范围（复用 18 部门 / 7 域，还是更小集合）？→ 阻塞 FR-004
-- **Q3**：审计下沉方式（宿主 append-only 日志 vs 仅内存返回）？→ 阻塞 FR-008
-- **Q4**：仓库 `{OWNER}/{REPO}` 名称、CODEOWNERS 句柄、CODE_OF_CONDUCT 联系渠道。
-- **Q5**：仅支持 `2026-07-28`，还是同时兼容旧版 MCP（如 `2025-06-18`）？
+| 问题 | 决策 | 规格落点 |
+| --- | --- | --- |
+| **Q1** 运行时与 SDK | TypeScript + `@modelcontextprotocol/sdk`（引入 Node 运行时） | Assumptions；`/plan` 技术方案输入 |
+| **Q2** 部门枚举范围 | 五档 size profile 全部内置：`micro`=2、`small`=5、`medium`=9、`large`=18、`group`=36 部门，经配置切换，默认 `micro` | FR-004 + AT-004 |
+| **Q3** 审计下沉方式 | 仅内存随响应返回，不做持久化下沉 | FR-008 + Assumptions |
+| **Q4** 仓库与联系渠道 | 仓库 `JohnSmithfan/ai-company-mcp`；CODEOWNERS 句柄 `JohnSmithfan`；CODE_OF_CONDUCT 联系渠道为「通过 GitHub 私信 / 报告内容功能私下联系维护者」 | Assumptions；`CODE_OF_CONDUCT.md`；`.github/CODEOWNERS` |
+| **Q5** 协议兼容范围 | 兼容 MCP 官方全部已发布历史版本，按宿主声明进行协议版本协商；`2026-07-28` 为主目标 | Protocol Target + FR-001/011 + AT-001 |
+
+> 决策来源：项目维护者于 2026-11-16 对 Q1–Q5 逐项给出指令，AI 仅负责记录与落实，未自行拍板。
 
 ## Traceability to Research
 
@@ -186,8 +190,9 @@ ATDD 规则：下表每条 `AT-*` 在进入 `implement` 之前必须先写成**�
 - [x] `spec.md` 四段强制章节齐备（Scenarios / Requirements / Success Criteria / Assumptions）。
 - [x] 每条 FR 至少关联一条 AT；ID 唯一；EARS + Given/When/Then 语法合规。
 - [x] 非目标、边界条件、开放问题显式列出，未用臆造决策填空。
+- [x] 开放问题 Q1–Q5 已由维护者拍板并记录于 Clarified Decisions（2026-11-16）。
 - [x] AIGC 三层标注（可见标签 / 元数据 / 隐藏水印）与审计追踪 ID 就位。
 - [x] 仓库契约门禁 `scripts/check_repo.py` + CI 通过（含反向验证）。
 - [ ] **人工评审签字**（由项目维护者完成，AI 不得代签）。
 
-**下一步**：`/clarify`（清 Q1–Q5）→ `/plan` → `/tasks` → `/implement` → `/converge`。**本步骤不产生任何实现代码。**
+**下一步**：`/clarify` 已完成（Q1–Q5 已决，见 Clarified Decisions）→ `/plan` → `/tasks` → `/implement` → `/converge`。**本步骤不产生任何实现代码。**

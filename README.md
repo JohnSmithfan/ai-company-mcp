@@ -17,7 +17,7 @@ The AI agent ecosystem has three layers. This project sits between them:
 
 | Layer | Concern | Examples | This project |
 | --- | --- | --- | --- |
-| Connectivity | How agents call tools | MCP, A2A | Speaks MCP `2026-07-28` |
+| Connectivity | How agents call tools | MCP, A2A | Speaks MCP `2026-07-28` (primary target) with negotiation for all published historical versions |
 | Orchestration | How tasks and state flow | LangGraph, CrewAI, Agents SDK | Not an orchestrator |
 | Organization | Who reports to whom, who approves | Paperclip, The Agency, trinity | A composable governance protocol layer |
 
@@ -45,6 +45,7 @@ and `company.spec.validate` will make that contract callable.
 | `scripts/check_repo.py` | CI contract gate: community files, encoding, FR→AT traceability |
 | `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `SUPPORT.md` | GitHub community health files |
 | `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md` | Contribution templates |
+| `.github/CODEOWNERS` | Code ownership (maintainer `@JohnSmithfan`) |
 
 ## Development workflow
 
@@ -69,13 +70,14 @@ No runtime, package manager, or credentials are needed for this step.
 
 ## Before publishing to GitHub
 
-Replace these placeholders; do not invent values:
+The repository will be published as `JohnSmithfan/ai-company-mcp`; the maintainer
+contact channel (GitHub private contact, `@JohnSmithfan`) and `.github/CODEOWNERS`
+were settled on 2026-11-16 (see the spec's Clarified Decisions). Remaining items:
 
-- `{OWNER}/{REPO}` in badges, links, and issue/PR templates.
-- `[MAINTAINER_CONTACT]` in `CODE_OF_CONDUCT.md`.
-- Add `.github/CODEOWNERS` with the real maintainer handle.
-- Enable GitHub Discussions (referenced by `SUPPORT.md`) and private vulnerability reporting (referenced by `SECURITY.md`).
-- Add CI/status badges after the first successful workflow run.
+- [x] Fill the maintainer contact channel in `CODE_OF_CONDUCT.md` (2026-11-16).
+- [x] Add `.github/CODEOWNERS` with the real maintainer handle (2026-11-16).
+- [ ] Enable GitHub Discussions (referenced by `SUPPORT.md`) and private vulnerability reporting (referenced by `SECURITY.md`).
+- [ ] Add CI/status badges after the first successful workflow run.
 
 GitHub community profile checklist requires: `README.md`, `LICENSE`,
 `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, valid issue templates and

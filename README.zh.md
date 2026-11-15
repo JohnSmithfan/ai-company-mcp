@@ -14,7 +14,7 @@
 
 | 层 | 解决什么 | 代表项目 | 本项目 |
 | --- | --- | --- | --- |
-| 连接层 | Agent 如何调工具 | MCP、A2A | 采用 MCP `2026-07-28` |
+| 连接层 | Agent 如何调工具 | MCP、A2A | 采用 MCP `2026-07-28`（主目标），并协商兼容全部已发布历史版本 |
 | 编排层 | 任务与状态如何流转 | LangGraph、CrewAI、Agents SDK | 不做编排 |
 | 组织层 | 谁汇报、谁批准、谁负责 | Paperclip、The Agency、trinity | 可组合的治理协议层 |
 
@@ -41,11 +41,12 @@ python -B scripts/check_repo.py --root .
 
 ## 发布前待办
 
-- 把徽章、模板中的 `{OWNER}/{REPO}` 换成真实值（不要臆造）。
-- 填写 `CODE_OF_CONDUCT.md` 中的 `[MAINTAINER_CONTACT]`。
-- 新增 `.github/CODEOWNERS`，写入真实维护者句柄。
-- 启用 GitHub Discussions 与私有漏洞上报通道。
-- 首次 CI 通过后补状态徽章。
+仓库将发布为 `JohnSmithfan/ai-company-mcp`；维护者联系渠道（GitHub 私信 / 报告内容功能私下联系 `@JohnSmithfan`）与 `.github/CODEOWNERS` 已于 2026-11-16 确定（详见规格说明书 Clarified Decisions）。剩余待办：
+
+- [x] 填写 `CODE_OF_CONDUCT.md` 维护者联系渠道（2026-11-16）。
+- [x] 新增 `.github/CODEOWNERS`，写入真实维护者句柄（2026-11-16）。
+- [ ] 启用 GitHub Discussions 与私有漏洞上报通道。
+- [ ] 首次 CI 通过后补状态徽章。
 
 GitHub 社区规范清单要求：`README.md`、`LICENSE`、`CONTRIBUTING.md`、`CODE_OF_CONDUCT.md`、`SECURITY.md`、合法的 issue 模板与 PR 模板；`LICENSE` 不能从默认 `.github` 仓库继承，必须本仓自带。
 

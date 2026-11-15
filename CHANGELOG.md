@@ -10,7 +10,8 @@ All notable changes to this project are documented here. Format follows
 
 - SDD Step 0: `CONSTITUTION.md` with seven non-negotiable principles.
 - SDD Step 1: `specs/001-core-mcp-server/spec.md` — 15 `FR-*`, 12 `AT-*`,
-  three prioritized user stories, success criteria, and five open questions.
+  three prioritized user stories, and success criteria (open questions Q1–Q5
+  later clarified; see Changed).
 - Competitor research at `docs/research/competitive-analysis.md` (GitHub API
   snapshot 2026-11-16) with decisions D1–D7 traced into the specification.
 - `docs/development-method.md` — SDD phases, ATDD red-first loop, EARS/GWT
@@ -37,9 +38,26 @@ All notable changes to this project are documented here. Format follows
   §6 and its amendment record, `CONTRIBUTING.md`, `AGENTS.md`, competitor
   decision D7, and the CI contract gate updated; Python sources now carry
   SPDX headers. No functional requirement or acceptance scenario changed.
+- **Clarified open questions Q1–Q5** (maintainer instruction, 2026-11-16).
+  Q1 runtime/SDK: TypeScript + `@modelcontextprotocol/sdk`. Q2 department
+  enum: five built-in size profiles (`micro`=2, `small`=5, `medium`=9,
+  `large`=18, `group`=36 departments), switchable via configuration, default
+  `micro`. Q3 audit: returned in-memory with the response only, no
+  persistence sinking. Q4 repository: `JohnSmithfan/ai-company-mcp`,
+  `CODEOWNERS` handle `@JohnSmithfan`, `CODE_OF_CONDUCT.md` contact channel
+  via GitHub private contact. Q5 protocol compatibility: negotiate all
+  officially published historical MCP versions with `2026-07-28` as the
+  primary target. The spec's Open Questions section became a Clarified
+  Decisions table; FR-001/004/008/011, AT-001/004, Assumptions, the
+  Protocol Target, and the READMEs (EN/ZH) were updated in the same change.
+  `.github/CODEOWNERS` was added and is now guarded by the contract gate.
+  No `FR-*` or `AT-*` was added or removed.
 
 ### Notes
 
 - No server implementation exists yet. `AT-*` scenarios are `RED-PENDING`.
-- Publishing placeholders (`{OWNER}/{REPO}`, `[MAINTAINER_CONTACT]`,
-  `CODEOWNERS`) are listed in the README and remain unfilled by design.
+- Publishing placeholders filled on 2026-11-16 (maintainer instruction):
+  repository `JohnSmithfan/ai-company-mcp`, maintainer contact channel in
+  `CODE_OF_CONDUCT.md`, and `.github/CODEOWNERS`. Remaining publication
+  tasks (GitHub Discussions, private vulnerability reporting, status badges)
+  are tracked in the README publishing checklists.
