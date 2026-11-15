@@ -84,8 +84,23 @@ a pull request template. `SUPPORT.md` and `CHANGELOG.md` are included as well.
 
 ## License
 
-[Apache-2.0](LICENSE). Chosen for its explicit patent grant and trademark terms,
-which matter for a governance component intended for enterprise use.
+**GNU General Public License v3.0 only** (SPDX: `GPL-3.0-only`). The verbatim
+FSF text is in [LICENSE](LICENSE). The `or later` option is **not** granted.
+
+GPLv3 is a strong copyleft license. In practical terms:
+
+- If you distribute a modified or derived version, the whole derived work must
+  be licensed under GPLv3 and you must provide its complete corresponding
+  source code.
+- Contributions are accepted under the same terms (inbound = outbound); there
+  is no CLA or copyright assignment. See [CONTRIBUTING.md](CONTRIBUTING.md).
+- A client that merely talks to this server over MCP is not automatically
+  covered by this license. Whether a specific integration forms a single
+  derived work is a legal question this project does not decide; seek your own
+  advice before shipping a combined distribution.
+
+The "How to Apply These Terms" boilerplate at the end of `LICENSE` is the FSF's
+generic template, not an additional grant from this project.
 
 Documents under `docs/` and `specs/` carry AI-generation disclosures and audit
 trace IDs; they require human review before being treated as decisions.

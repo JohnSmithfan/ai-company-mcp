@@ -13,6 +13,7 @@
 | 治理路由 | `intelligence-sentiment` (INTEL_) |
 | 证据等级 | A = GitHub REST API / 官方文档；B = 二手评测（仅作趋势参考） |
 | 复核状态 | 待人工复核 |
+| 修订记录 | 2026-11-16：D7 许可证决策按维护者指令改为 `GPL-3.0-only`，见 §5 修订说明 |
 
 ## 1. 调研范围与方法
 
@@ -47,7 +48,7 @@
 | `Abilityai/trinity` | 组织·平台 | 775 | Apache-2.0 | 2026-11-15 | 自托管 Agent 平台，topics 含 `mcp-server`/`ai-governance` | 角色、汇报线、指标、审批 | 有 | 824 open issues；仍是完整平台而非可嵌入薄层 |
 | `JohnSmithfan/AI-Company`（同源基线） | 组织·技能包 | 0 | NOASSERTION | 2026-10-27 | 18 部门 / 7 域 / 117 错误码的 WorkBuddy skill | 治理层 13 文件 | 无 | 绑定特定宿主；`SKILL.md` 声明 GPL-3.0 但 GitHub 未检出 LICENSE 文件 |
 
-**关键发现（同源基线）**：基线仓库 API `license.spdx_id = NOASSERTION`，而 `SKILL.md` frontmatter 写 `GPL-3.0`。GitHub 社区规范不认 frontmatter 声明，**基线仓库需补 `LICENSE` 文件**，否则社区档案无许可证标识。新项目直接以 Apache-2.0 `LICENSE` 落地规避此问题。
+**关键发现（同源基线）**：基线仓库 API `license.spdx_id = NOASSERTION`，而 `SKILL.md` frontmatter 写 `GPL-3.0`。GitHub 社区规范不认 frontmatter 声明，**基线仓库需补 `LICENSE` 文件**，否则社区档案无许可证标识。新项目自带完整 `LICENSE` 落地规避此问题；2026-11-16 起该文件为 GNU GPL v3 逐字文本，与基线 frontmatter 的版本口径一致。
 
 ## 4. 规范基线（A 级）
 
@@ -66,7 +67,9 @@
 | D4 | 轻量方案普遍缺审批、审计、错误码、AIGC 标注 | 审批门 + 审计记录 + 稳定错误码 + AIGC 三层标注 + PII 掩码 | FR-007/008/014/015 |
 | D5 | 无人把 SDD/ATDD 契约做成可调用能力 | 提供 `company.spec.validate`，校验章节、FR→AT 追溯、ID 唯一性 | FR-012 |
 | D6 | MCP 生态存在命令注入 / 工具描述诱导 / 凭据转发等系统性风险（B 级） | 默认只读、零网络出口、零 telemetry、零凭据、零子进程 | FR-006/009 |
-| D7 | 主流为 MIT；治理型基础件需要专利授权与明确商标条款 | 采用 Apache-2.0，并一次配齐 GitHub 社区规范文件 | 仓库治理 / SC-005 |
+| D7 | 主流为 MIT / Apache-2.0；治理协议层需以强 copyleft 保证衍生改进保持开放 | 采用 **`GPL-3.0-only`**（GNU GPL v3，不授予 `or later`），并一次配齐 GitHub 社区规范文件 | 仓库治理 / SC-005 |
+
+> **决策修订说明（2026-11-16）**：D7 初稿选 Apache-2.0（理由为专利授权与商标条款）。维护者随后指定 GNU GPL v3，现行为 `GPL-3.0-only`；`LICENSE` 已替换为 FSF 官方逐字文本，README（中英）、`CONSTITUTION.md` §6 与修订记录、`CONTRIBUTING.md`、`AGENTS.md`、`CHANGELOG.md` 及 CI 契约门禁同步更新。§3 的竞品许可证数据属于 2026-11-16 API 快照，**不随本项目决策改变**；D1–D6 与 FR 追溯均不变。变更依据见 `CHANGELOG.md`。
 
 ## 6. 风险与待验证项
 
@@ -77,8 +80,9 @@
 | R3 | 组织层可能被大厂运行时吸收（B 级） | 保持框架无关、无状态、可替换；不绑定任何模型厂商 |
 | R4 | 二手星标 / 市场规模互相矛盾 | 不写入产品文档；仅保留本表 API 快照 |
 | R5 | BMAD 官网称 MIT、API 为 NOASSERTION | 引用时标注口径差异 |
-| R6 | 同源基线 License 声明与仓库不一致 | 已列入基线仓库待办；新项目不受影响 |
+| R6 | 同源基线 License 声明与仓库不一致 | 已列入基线仓库待办；新项目自带 `LICENSE` 不受影响，且现行 `GPL-3.0-only` 与基线 frontmatter 版本口径一致 |
 | R7 | 新仓库 `{OWNER}/{REPO}`、维护者联系方式未定 | 发布前检查清单统一填写，禁止臆造邮箱 / 徽章 URL |
+| R8 | GPLv3 强 copyleft 对「作为库被集成」的合规边界存在法律不确定性 | README 明示：仅通过 MCP 协议交互的客户端不自动适用，是否构成单一衍生作品由集成方自行评估；本调研不作法律结论 |
 
 ## 7. 结论
 
@@ -96,3 +100,4 @@
 6. https://alistairmavin.com/ears/（EARS 官方）
 7. https://www.bmadcode.com/method（License 口径，B 级）
 8. 多源委托调研汇总（市场数据、CVE 统计、大厂动向，B 级，仅作趋势判断）
+9. https://www.gnu.org/licenses/gpl-3.0.txt（FSF 官方逐字文本，2026-11-16 获取，仅用于本项目 `LICENSE`）

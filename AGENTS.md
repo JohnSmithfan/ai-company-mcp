@@ -31,6 +31,8 @@ Set `PYTHONDONTWRITEBYTECODE=1` so `__pycache__` never enters the tree.
 - Reverse-verify new assertions: inject the defect into a temp copy and confirm
   the check fails. A vacuous pass is a defect.
 - Never invent owner handles, emails, badge URLs, statistics, or license claims.
+- The project is `GPL-3.0-only`. Never add a conflicting license header or
+  reintroduce permissive licensing claims; `LICENSE` is the verbatim FSF text.
 - Identifiers stay English. Product-facing files are English; working documents
   may be Chinese. UTF-8 without BOM, LF endings, 2-space indent (4 for Python).
 - No absolute user paths, no filenames with spaces, no dead code, no TODO debt.

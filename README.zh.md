@@ -51,4 +51,8 @@ GitHub 社区规范清单要求：`README.md`、`LICENSE`、`CONTRIBUTING.md`、
 
 ## 许可证
 
-[Apache-2.0](LICENSE)。`docs/` 与 `specs/` 下的文档带有 AIGC 标注与审计追踪 ID，需人工复核后方可作为决策依据。
+**GNU 通用公共许可证第 3 版，仅该版本**（SPDX: `GPL-3.0-only`）。FSF 官方逐字文本见 [LICENSE](LICENSE)；**未授予 "or later"（或更高版本）选项**。
+
+GPLv3 属于强 copyleft：分发修改版或衍生作品时，整体须以 GPLv3 授权并提供完整对应源码；贡献按同一许可证接收（inbound = outbound），无 CLA、无著作权转让，详见 [CONTRIBUTING.md](CONTRIBUTING.md)；仅通过 MCP 协议与本服务交互的客户端并不因此自动适用本许可证，某个集成是否构成单一衍生作品属法律判断，本项目不作保证，发布组合分发前请自行评估。`LICENSE` 末尾的 "How to Apply These Terms" 是 FSF 通用模板，不是本项目的额外授权。
+
+`docs/` 与 `specs/` 下的文档带有 AIGC 标注与审计追踪 ID，需人工复核后方可作为决策依据。

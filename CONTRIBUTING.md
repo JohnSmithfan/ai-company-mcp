@@ -66,6 +66,19 @@ Issue forms (`.yml`) must contain valid `name:` and `description:` keys to count
 toward the community profile checklist. If you add or rename a health file,
 update the README repository map in the same change.
 
+## Licensing of contributions
+
+This project is **`GPL-3.0-only`** (GNU GPL v3, no `or later` option). By
+submitting a contribution you agree that it is distributed under the same
+terms: inbound = outbound, with no CLA and no copyright assignment. Do not add
+license headers that contradict [LICENSE](LICENSE).
+
+Third-party compatibility is one-way: permissively licensed code (MIT,
+Apache-2.0, BSD) may be incorporated into a GPLv3 work while preserving its
+copyright and notice requirements; GPLv3 code may not be relicensed under
+those terms. License names in `docs/research/` describe competitors and are
+evidence, not grants to this project.
+
 ## Language policy
 
 Product-facing files (README, community health files, configuration, code) are

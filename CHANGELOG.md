@@ -16,9 +16,19 @@ All notable changes to this project are documented here. Format follows
 - `docs/development-method.md` — SDD phases, ATDD red-first loop, EARS/GWT
   grammar, traceability rules, and anti-patterns.
 - Full GitHub community health file set: `README.md`, `README.zh.md`,
-  `LICENSE` (Apache-2.0), `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`,
+  `LICENSE`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`,
   `SECURITY.md`, `SUPPORT.md`, issue forms, PR template, and `CHANGELOG.md`.
 - CI contract gate: `scripts/check_repo.py` plus `.github/workflows/ci.yml`.
+
+### Changed
+
+- **License: Apache-2.0 -> `GPL-3.0-only`** (maintainer instruction,
+  2026-11-16). `LICENSE` now holds the verbatim GNU GPLv3 text from
+  `https://www.gnu.org/licenses/gpl-3.0.txt`; the `or later` option is not
+  granted. README (EN/ZH), `CONSTITUTION.md` §6 and its amendment record,
+  `CONTRIBUTING.md`, `AGENTS.md`, competitor decision D7, and the CI contract
+  gate were updated in the same change. Contributions are inbound = outbound
+  with no CLA. No functional requirement or acceptance scenario changed.
 
 ### Notes
 

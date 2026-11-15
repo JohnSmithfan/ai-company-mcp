@@ -3,6 +3,8 @@
 
 Enforces the mechanical parts of CONSTITUTION.md:
   - required GitHub community health files exist
+  - LICENSE is the verbatim GNU GPLv3 text (SHA-256 pinned)
+  - every license declaration agrees on GPL-3.0-only
   - all text files are UTF-8 without BOM and use LF endings
   - no absolute user paths leak into tracked documents
   - issue forms carry the name/description keys GitHub requires
@@ -16,6 +18,7 @@ Stdlib only. No network, no writes, no third-party dependencies.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -70,6 +73,28 @@ SKIP_DIRS = {
     "build",
 }
 
+SPDX = "GPL-3.0-only"
+# Verbatim FSF text, fetched from https://www.gnu.org/licenses/gpl-3.0.txt
+# on 2026-11-16. The GPL forbids modifying the license document itself.
+GPLV3_SHA256 = "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+GPLV3_MARKERS = (
+    "GNU GENERAL PUBLIC LICENSE",
+    "Version 3, 29 June 2007",
+    "TERMS AND CONDITIONS",
+)
+# These files state the project's own license, so they must all agree.
+SPDX_DECLARATION_FILES = (
+    "README.md",
+    "README.zh.md",
+    "CONSTITUTION.md",
+    "CONTRIBUTING.md",
+    "AGENTS.md",
+    "CHANGELOG.md",
+)
+# Historical records and competitor license facts legitimately mention the
+# old/other license names; the declaration files above must not.
+STALE_CLAIM_FILES = ("README.md", "README.zh.md", "CONSTITUTION.md")
+
 # "Us[e]rs" is a character class so this detector never matches its own source.
 USER_PATH_RE = re.compile(
     r"(?:[A-Za-z]:[\\/]Us[e]rs[\\/]|/c/Us[e]rs/|/Us[e]rs/|/home/[A-Za-z0-9_.-]+/)"
@@ -99,6 +124,41 @@ def section(text: str, heading: str) -> str:
     return text[body_start + 1 : end]
 
 
+def check_license(root: Path) -> tuple[list[str], int]:
+    """Verify LICENSE bytes and the consistency of license declarations."""
+    errors: list[str] = []
+    verified = 0
+    license_file = root / "LICENSE"
+    if license_file.is_file():
+        data = license_file.read_bytes()
+        if hashlib.sha256(data).hexdigest() != GPLV3_SHA256:
+            errors.append("LICENSE is not the verbatim GNU GPLv3 text (sha256 mismatch)")
+        else:
+            verified = 1
+        text = data.decode("utf-8", errors="replace")
+        for marker in GPLV3_MARKERS:
+            if marker not in text:
+                errors.append(f"LICENSE missing GPLv3 marker: {marker!r}")
+        if "Apache License" in text:
+            errors.append("LICENSE still contains Apache License text")
+    else:
+        errors.append("LICENSE not found (also reported as a missing required file)")
+
+    for rel in SPDX_DECLARATION_FILES:
+        path = root / rel
+        if not path.is_file():
+            continue
+        if SPDX not in path.read_text(encoding="utf-8"):
+            errors.append(f"license declaration missing {SPDX}: {rel}")
+    for rel in STALE_CLAIM_FILES:
+        path = root / rel
+        if not path.is_file():
+            continue
+        if "Apache-2.0" in path.read_text(encoding="utf-8"):
+            errors.append(f"stale Apache-2.0 license claim: {rel}")
+    return errors, verified
+
+
 def check(root: Path) -> tuple[list[str], dict[str, int]]:
     errors: list[str] = []
     stats: dict[str, int] = {}
@@ -123,6 +183,9 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
             continue
         if USER_PATH_RE.search(text):
             errors.append(f"absolute user path leaked: {rel}")
+
+    license_errors, stats["license_verified"] = check_license(root)
+    errors.extend(license_errors)
 
     template_dir = root / ".github" / "ISSUE_TEMPLATE"
     forms = sorted(template_dir.glob("*.yml")) if template_dir.is_dir() else []
