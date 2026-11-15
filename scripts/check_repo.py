@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Repository contract gate for ai-company-mcp.
 
 Enforces the mechanical parts of CONSTITUTION.md:
   - required GitHub community health files exist
   - LICENSE is the verbatim GNU GPLv3 text (SHA-256 pinned)
-  - every license declaration agrees on GPL-3.0-only
+  - every license declaration and Python source header agrees on the SPDX id
+  - no version-restricted or permissive license wording survives
   - all text files are UTF-8 without BOM and use LF endings
   - no absolute user paths leak into tracked documents
   - issue forms carry the name/description keys GitHub requires
@@ -73,9 +75,11 @@ SKIP_DIRS = {
     "build",
 }
 
-SPDX = "GPL-3.0-only"
+SPDX = "GPL-3.0-or-later"
+SPDX_HEADER = f"# SPDX-License-Identifier: {SPDX}"
 # Verbatim FSF text, fetched from https://www.gnu.org/licenses/gpl-3.0.txt
-# on 2026-11-16. The GPL forbids modifying the license document itself.
+# on 2026-11-16. The GPL forbids modifying the license document itself; the
+# `or later` option is a project-level grant, not an edit to LICENSE.
 GPLV3_SHA256 = "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
 GPLV3_MARKERS = (
     "GNU GENERAL PUBLIC LICENSE",
@@ -90,9 +94,22 @@ SPDX_DECLARATION_FILES = (
     "CONTRIBUTING.md",
     "AGENTS.md",
     "CHANGELOG.md",
+    "scripts/check_repo.py",
 )
-# Historical records and competitor license facts legitimately mention the
-# old/other license names; the declaration files above must not.
+# Character classes keep this detector from matching its own source. CHANGELOG
+# and competitor research legitimately record superseded decisions, so they are
+# deliberately excluded from the stale-wording scan.
+STALE_VERSION_RE = re.compile(
+    r"GPL-3\.0-onl[y]|no[ ]`or later`|[Nn]ot[ ]granted|仅[该]版本|未[授]予"
+)
+STALE_VERSION_FILES = (
+    "README.md",
+    "README.zh.md",
+    "CONSTITUTION.md",
+    "CONTRIBUTING.md",
+    "AGENTS.md",
+    "scripts/check_repo.py",
+)
 STALE_CLAIM_FILES = ("README.md", "README.zh.md", "CONSTITUTION.md")
 
 # "Us[e]rs" is a character class so this detector never matches its own source.
@@ -150,6 +167,12 @@ def check_license(root: Path) -> tuple[list[str], int]:
             continue
         if SPDX not in path.read_text(encoding="utf-8"):
             errors.append(f"license declaration missing {SPDX}: {rel}")
+    for rel in STALE_VERSION_FILES:
+        path = root / rel
+        if not path.is_file():
+            continue
+        if STALE_VERSION_RE.search(path.read_text(encoding="utf-8")):
+            errors.append(f"stale version-restricted license wording: {rel}")
     for rel in STALE_CLAIM_FILES:
         path = root / rel
         if not path.is_file():
@@ -169,6 +192,7 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
 
     files = list(iter_text_files(root))
     stats["files_checked"] = len(files)
+    python_files = 0
     for path in files:
         rel = path.relative_to(root).as_posix()
         data = path.read_bytes()
@@ -181,8 +205,13 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
         except UnicodeDecodeError as exc:
             errors.append(f"not valid UTF-8: {rel} ({exc})")
             continue
+        if path.suffix == ".py":
+            python_files += 1
+            if SPDX_HEADER not in text:
+                errors.append(f"missing SPDX header: {rel}")
         if USER_PATH_RE.search(text):
             errors.append(f"absolute user path leaked: {rel}")
+    stats["spdx_headers"] = python_files
 
     license_errors, stats["license_verified"] = check_license(root)
     errors.extend(license_errors)

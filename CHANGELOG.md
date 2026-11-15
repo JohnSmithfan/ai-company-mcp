@@ -29,6 +29,14 @@ All notable changes to this project are documented here. Format follows
   `CONTRIBUTING.md`, `AGENTS.md`, competitor decision D7, and the CI contract
   gate were updated in the same change. Contributions are inbound = outbound
   with no CLA. No functional requirement or acceptance scenario changed.
+- **Version option granted: `GPL-3.0-only` -> `GPL-3.0-or-later`**
+  (maintainer instruction, 2026-11-16). Users may choose GPLv3 or any later
+  FSF version. `LICENSE` stays the unmodified GPLv3 text — the GPL forbids
+  editing the license document, so the version option is declared in the
+  README and source SPDX headers instead. README (EN/ZH), `CONSTITUTION.md`
+  §6 and its amendment record, `CONTRIBUTING.md`, `AGENTS.md`, competitor
+  decision D7, and the CI contract gate updated; Python sources now carry
+  SPDX headers. No functional requirement or acceptance scenario changed.
 
 ### Notes
 

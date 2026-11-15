@@ -13,7 +13,7 @@
 | 治理路由 | `intelligence-sentiment` (INTEL_) |
 | 证据等级 | A = GitHub REST API / 官方文档；B = 二手评测（仅作趋势参考） |
 | 复核状态 | 待人工复核 |
-| 修订记录 | 2026-11-16：D7 许可证决策按维护者指令改为 `GPL-3.0-only`，见 §5 修订说明 |
+| 修订记录 | 2026-11-16：D7 先改为 `GPL-3.0-only`，同日按维护者指令授予未来版本选项，现行 `GPL-3.0-or-later`，见 §5 修订说明 |
 
 ## 1. 调研范围与方法
 
@@ -67,9 +67,9 @@
 | D4 | 轻量方案普遍缺审批、审计、错误码、AIGC 标注 | 审批门 + 审计记录 + 稳定错误码 + AIGC 三层标注 + PII 掩码 | FR-007/008/014/015 |
 | D5 | 无人把 SDD/ATDD 契约做成可调用能力 | 提供 `company.spec.validate`，校验章节、FR→AT 追溯、ID 唯一性 | FR-012 |
 | D6 | MCP 生态存在命令注入 / 工具描述诱导 / 凭据转发等系统性风险（B 级） | 默认只读、零网络出口、零 telemetry、零凭据、零子进程 | FR-006/009 |
-| D7 | 主流为 MIT / Apache-2.0；治理协议层需以强 copyleft 保证衍生改进保持开放 | 采用 **`GPL-3.0-only`**（GNU GPL v3，不授予 `or later`），并一次配齐 GitHub 社区规范文件 | 仓库治理 / SC-005 |
+| D7 | 主流为 MIT / Apache-2.0；治理协议层需以强 copyleft 保证衍生改进保持开放 | 采用 **`GPL-3.0-or-later`**（GNU GPL v3 或 FSF 后续任何版本），并一次配齐 GitHub 社区规范文件 | 仓库治理 / SC-005 |
 
-> **决策修订说明（2026-11-16）**：D7 初稿选 Apache-2.0（理由为专利授权与商标条款）。维护者随后指定 GNU GPL v3，现行为 `GPL-3.0-only`；`LICENSE` 已替换为 FSF 官方逐字文本，README（中英）、`CONSTITUTION.md` §6 与修订记录、`CONTRIBUTING.md`、`AGENTS.md`、`CHANGELOG.md` 及 CI 契约门禁同步更新。§3 的竞品许可证数据属于 2026-11-16 API 快照，**不随本项目决策改变**；D1–D6 与 FR 追溯均不变。变更依据见 `CHANGELOG.md`。
+> **决策修订说明（2026-11-16）**：D7 初稿选 Apache-2.0（理由为专利授权与商标条款）。维护者随后指定 GNU GPL v3，先定为 `GPL-3.0-only`，同日再次指示「允许未来版本」，现行为 **`GPL-3.0-or-later`**——用户可选 GPLv3 或 FSF 后续发布的任何版本。`LICENSE` 始终是 FSF 官方 GPLv3 逐字文本（GPL 禁止改动许可证文档，版本选项由 README 与源码 SPDX 头声明，而非修改 `LICENSE`）；README（中英）、`CONSTITUTION.md` §6 与修订记录、`CONTRIBUTING.md`、`AGENTS.md`、`CHANGELOG.md` 及 CI 契约门禁同步更新。§3 的竞品许可证数据属于 2026-11-16 API 快照，**不随本项目决策改变**；D1–D6 与 FR 追溯均不变。变更依据见 `CHANGELOG.md`。
 
 ## 6. 风险与待验证项
 
@@ -80,9 +80,10 @@
 | R3 | 组织层可能被大厂运行时吸收（B 级） | 保持框架无关、无状态、可替换；不绑定任何模型厂商 |
 | R4 | 二手星标 / 市场规模互相矛盾 | 不写入产品文档；仅保留本表 API 快照 |
 | R5 | BMAD 官网称 MIT、API 为 NOASSERTION | 引用时标注口径差异 |
-| R6 | 同源基线 License 声明与仓库不一致 | 已列入基线仓库待办；新项目自带 `LICENSE` 不受影响，且现行 `GPL-3.0-only` 与基线 frontmatter 版本口径一致 |
+| R6 | 同源基线 License 声明与仓库不一致 | 已列入基线仓库待办；新项目自带 `LICENSE` 不受影响，且现行 `GPL-3.0-or-later` 覆盖基线 frontmatter 的 GPL-3.0 口径 |
 | R7 | 新仓库 `{OWNER}/{REPO}`、维护者联系方式未定 | 发布前检查清单统一填写，禁止臆造邮箱 / 徽章 URL |
 | R8 | GPLv3 强 copyleft 对「作为库被集成」的合规边界存在法律不确定性 | README 明示：仅通过 MCP 协议交互的客户端不自动适用，是否构成单一衍生作品由集成方自行评估；本调研不作法律结论 |
+| R9 | `or later` 授权下未来 GPL 版本条款未定 | 版本选择权归使用者；`LICENSE` 仅含 v3 逐字文本，未来版本由 FSF 发布，本项目不预判其条款 |
 
 ## 7. 结论
 

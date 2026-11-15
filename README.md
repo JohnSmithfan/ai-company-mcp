@@ -84,8 +84,10 @@ a pull request template. `SUPPORT.md` and `CHANGELOG.md` are included as well.
 
 ## License
 
-**GNU General Public License v3.0 only** (SPDX: `GPL-3.0-only`). The verbatim
-FSF text is in [LICENSE](LICENSE). The `or later` option is **not** granted.
+**GNU General Public License v3.0 or later** (SPDX: `GPL-3.0-or-later`).
+The verbatim FSF text of version 3 is in [LICENSE](LICENSE). You may use and
+redistribute this project under GPLv3 or, at your option, any later version of
+the GNU GPL published by the Free Software Foundation.
 
 GPLv3 is a strong copyleft license. In practical terms:
 
@@ -100,7 +102,11 @@ GPLv3 is a strong copyleft license. In practical terms:
   advice before shipping a combined distribution.
 
 The "How to Apply These Terms" boilerplate at the end of `LICENSE` is the FSF's
-generic template, not an additional grant from this project.
+generic template. This section states the project's actual grant: the `or later`
+option is granted here, not by editing `LICENSE` (the GPL forbids changing the
+license document). GitHub's community profile detects the GPLv3 family from the
+unmodified `LICENSE`; the SPDX expression above is authoritative for the
+version option.
 
 Documents under `docs/` and `specs/` carry AI-generation disclosures and audit
 trace IDs; they require human review before being treated as decisions.

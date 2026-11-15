@@ -51,8 +51,8 @@ GitHub 社区规范清单要求：`README.md`、`LICENSE`、`CONTRIBUTING.md`、
 
 ## 许可证
 
-**GNU 通用公共许可证第 3 版，仅该版本**（SPDX: `GPL-3.0-only`）。FSF 官方逐字文本见 [LICENSE](LICENSE)；**未授予 "or later"（或更高版本）选项**。
+**GNU 通用公共许可证第 3 版或任何更高版本**（SPDX: `GPL-3.0-or-later`）。[LICENSE](LICENSE) 为 FSF 官方 GPLv3 逐字文本；你可按 GPLv3 使用与再分发，也可自行选择 FSF 后续发布的任何 GNU GPL 版本。
 
-GPLv3 属于强 copyleft：分发修改版或衍生作品时，整体须以 GPLv3 授权并提供完整对应源码；贡献按同一许可证接收（inbound = outbound），无 CLA、无著作权转让，详见 [CONTRIBUTING.md](CONTRIBUTING.md)；仅通过 MCP 协议与本服务交互的客户端并不因此自动适用本许可证，某个集成是否构成单一衍生作品属法律判断，本项目不作保证，发布组合分发前请自行评估。`LICENSE` 末尾的 "How to Apply These Terms" 是 FSF 通用模板，不是本项目的额外授权。
+GPLv3 属于强 copyleft：分发修改版或衍生作品时，整体须以 GPLv3 授权并提供完整对应源码；贡献按同一许可证接收（inbound = outbound），无 CLA、无著作权转让，详见 [CONTRIBUTING.md](CONTRIBUTING.md)；仅通过 MCP 协议与本服务交互的客户端并不因此自动适用本许可证，某个集成是否构成单一衍生作品属法律判断，本项目不作保证，发布组合分发前请自行评估。`LICENSE` 末尾的 "How to Apply These Terms" 是 FSF 通用模板；本项目的版本授权由本节声明，而非改动 `LICENSE` 文本（GPL 禁止改动许可证文档）。GitHub 社区档案据未经改动的 `LICENSE` 识别为 GPLv3 系列，版本选项以上方 SPDX 表达式为准。
 
 `docs/` 与 `specs/` 下的文档带有 AIGC 标注与审计追踪 ID，需人工复核后方可作为决策依据。

@@ -49,9 +49,10 @@ says otherwise.
 
 ## 6. Open-source hygiene
 
-`GPL-3.0-only` (GNU General Public License v3.0, no `or later` option);
-`LICENSE` holds the verbatim FSF text, inbound contributions use the same terms,
-and there is no CLA. GitHub community profile checklist must stay at 100%.
+`GPL-3.0-or-later` (GNU GPL v3 or any later FSF version); `LICENSE` holds the
+verbatim FSF v3 text, inbound contributions use the same terms, and there is no
+CLA. Python sources carry SPDX headers. GitHub community profile checklist
+must stay at 100%.
 Product-facing files are English; working documents may use the reviewer's language;
 identifiers are never translated. UTF-8 without BOM, LF line endings, 2-space
 indent (4 for Python), no absolute user paths, no spaces in filenames. No
@@ -78,4 +79,5 @@ human review still owns judgment calls.
 | Date | Change | Approved by |
 | --- | --- | --- |
 | 2026-11-16 | Initial constitution (7 principles) | Pending maintainer sign-off |
-| 2026-11-16 | §6 set to `GPL-3.0-only` (pre-ratification correction at maintainer's request; no CLA, no `or later`) | Maintainer request; sign-off pending |
+| 2026-11-16 | §6 switched from permissive to strong copyleft (pre-ratification correction at maintainer's request; no CLA) | Maintainer request; sign-off pending |
+| 2026-11-16 | §6 version option granted: `GPL-3.0-or-later`; Python sources carry SPDX headers | Maintainer request; sign-off pending |

@@ -68,10 +68,13 @@ update the README repository map in the same change.
 
 ## Licensing of contributions
 
-This project is **`GPL-3.0-only`** (GNU GPL v3, no `or later` option). By
-submitting a contribution you agree that it is distributed under the same
-terms: inbound = outbound, with no CLA and no copyright assignment. Do not add
-license headers that contradict [LICENSE](LICENSE).
+This project is **`GPL-3.0-or-later`** (GNU GPL v3 or, at your option, any
+later version published by the FSF). By submitting a contribution you agree
+that it is distributed under the same terms: inbound = outbound, with no CLA
+and no copyright assignment. Every new source file must carry
+`# SPDX-License-Identifier: GPL-3.0-or-later`; do not add headers that
+contradict [LICENSE](LICENSE). The version option is a project-level grant —
+the GPL forbids editing the license document itself.
 
 Third-party compatibility is one-way: permissively licensed code (MIT,
 Apache-2.0, BSD) may be incorporated into a GPLv3 work while preserving its
