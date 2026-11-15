@@ -1,0 +1,75 @@
+name: Bug report
+description: Report incorrect behavior in the server, documents, or repository contract gate
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This project is at SDD Step 1 (specification only, no server code yet).
+        Document and contract-gate defects are valid bug reports too.
+        Never paste credentials, tokens, or personal data.
+  - type: input
+    id: mcp-version
+    attributes:
+      label: MCP protocol version
+      description: The version declared in the request `_meta`.
+      placeholder: "2026-07-28"
+    validations:
+      required: true
+  - type: dropdown
+    id: transport
+    attributes:
+      label: Transport
+      options:
+        - stdio
+        - Streamable HTTP
+        - Not applicable (docs / CI)
+    validations:
+      required: true
+  - type: input
+    id: host
+    attributes:
+      label: MCP host and version
+      placeholder: "host name, version"
+    validations:
+      required: false
+  - type: input
+    id: scenario
+    attributes:
+      label: Acceptance scenario ID
+      description: The `AT-*` scenario that failed, if applicable.
+      placeholder: "AT-003"
+    validations:
+      required: false
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Minimal, deterministic steps including the exact request.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Quote the relevant `FR-*` or spec section.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include the exact error code or output, with PII masked.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and discussions.
+          required: true
+        - label: I removed credentials, tokens, and personal data.
+          required: true
+        - label: This is not a security vulnerability (I will use SECURITY.md instead).
+          required: true

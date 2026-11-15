@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# Node
+node_modules/
+*.tsbuildinfo
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Local tooling and generated reports (not package content)
+.workbuddy/
+.skill-upgrade/
+AUDIT-*.md
+REVIEW-*.md
+
+# Keep tooling configuration tracked
+!.github/
+!.gitattributes
+!.editorconfig

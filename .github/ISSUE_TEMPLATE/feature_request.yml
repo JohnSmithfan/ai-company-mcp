@@ -1,0 +1,53 @@
+name: Feature request
+description: Propose a change that is backed by a specification and acceptance scenarios
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        SDD rule: no implementation without a merged spec. Describe the spec
+        change first; do not open this as a request to "just add the code".
+  - type: input
+    id: spec-path
+    attributes:
+      label: Spec path or proposed spec ID
+      placeholder: "specs/002-.../spec.md"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and evidence
+      description: What is broken or missing? Link competitor evidence if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Proposed requirements (EARS)
+      description: Draft `FR-*` lines using `the server shall ...` syntax.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance scenarios
+      description: At least one Given / When / Then scenario per requirement.
+    validations:
+      required: true
+  - type: textarea
+    id: non-goals
+    attributes:
+      label: Explicit non-goals
+      description: What this proposal deliberately does not do.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: The proposal stays within CONSTITUTION.md principles.
+          required: true
+        - label: I did not invent statistics, owner handles, or contact details.
+          required: true
