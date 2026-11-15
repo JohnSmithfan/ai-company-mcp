@@ -2,7 +2,7 @@
 
 <!-- AIGC-WM:AICOMPANYMCP-20261116-045201 -->
 
-> **AIGC 标注（第 1 层 · 可见标签）**：本文由 AI 生成，须经人工复核批准后方可进入 SDD Step 2。
+> **AIGC 标注（第 1 层 · 可见标签）**：本文由 AI 生成，须经人工复核批准后方可进入 `/plan`。
 > **AI-generated content — human approval required before `/plan`.**
 
 **Feature Branch**: `001-core-mcp-server`
@@ -153,7 +153,7 @@ ATDD 规则：下表每条 `AT-*` 在进入 `implement` 之前必须先写成**�
 
 ## Assumptions
 
-- MCP 宿主兼容 `2026-07-28`；宿主负责 LLM 调用、用户同意 UI 与工具展示安全（本服务不重复实现）。
+- 主目标宿主兼容 MCP `2026-07-28`；声明其他已发布历史版本的宿主按 FR-011 的协商语义接入。宿主负责 LLM 调用、用户同意 UI 与工具展示安全（本服务不重复实现）。
 - v0.1 无持久化；审计仅随响应内存返回，不做持久化下沉，也不依赖宿主 append-only 日志（Clarified Decisions Q3）。
 - v0.1 默认只读；任何写入必须显式批准（宪法级不可豁免）。
 - 标识符（slug、错误码、字段名、枚举值、文件路径、函数名）恒为英文，永不翻译；产品对外文件用英文，工作文档可用中文。

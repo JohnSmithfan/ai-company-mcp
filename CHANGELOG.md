@@ -52,6 +52,14 @@ All notable changes to this project are documented here. Format follows
   Protocol Target, and the READMEs (EN/ZH) were updated in the same change.
   `.github/CODEOWNERS` was added and is now guarded by the contract gate.
   No `FR-*` or `AT-*` was added or removed.
+- **Consistency fixes from independent spec review** (same change set,
+  2026-11-16). `docs/development-method.md` now states that Step 2
+  (`clarify`) is finished; competitor research R2/R7 reflect the Q5 and Q4
+  decisions instead of referring to open questions; the spec's first
+  Assumption covers hosts declaring historical versions (aligned with
+  FR-011); the AIGC gate wording in the spec is unified to "before `/plan`";
+  stale references to the README placeholder checklist in `CONTRIBUTING.md`
+  and `CONSTITUTION.md` were replaced with the settled-values wording.
 
 ### Notes
 

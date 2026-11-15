@@ -18,8 +18,10 @@ Read [CONSTITUTION.md](CONSTITUTION.md) and
    `CONSTITUTION.md`, or the acceptance contract. Spec changes need maintainer
    review.
 4. **No fabrication.** Do not invent repository owner handles, security emails,
-   badge URLs, benchmark numbers, or competitor statistics. Use the placeholders
-   listed in the README publishing checklist.
+   badge URLs, benchmark numbers, or competitor statistics. Repository, owner,
+   and maintainer contact values were settled on 2026-11-16 (see the README
+   publishing checklist); do not invent values for the remaining publication
+   items (Discussions, private vulnerability reporting, status badges).
 5. **Identifier immutability.** Slugs, error codes, field names, enum values,
    file paths, and function names stay in English in every language variant.
 

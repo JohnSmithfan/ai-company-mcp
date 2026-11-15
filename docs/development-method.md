@@ -17,9 +17,11 @@ tool-agnostic, so the phases below work with any coding agent.
 | 5 | Implement | `/speckit-implement` | Code + tests | All `AT-*` green |
 | 6 | Converge | `/speckit-converge` | Convergence report | Repeat 5–6 until `Converged` |
 
-**Current state: Step 1.** `specs/001-core-mcp-server/spec.md` is the deliverable.
-Step 2 (`clarify`) must resolve questions Q1–Q5 before planning. No implementation
-code exists and none may be added in this step.
+**Current state: Step 1 deliverable complete; Step 2 (`clarify`) finished on
+2026-11-16** — open questions Q1–Q5 were decided by the maintainer and are
+recorded in the spec's Clarified Decisions table. Human review of the spec is
+still pending before `/plan`. No implementation code exists and none may be
+added before the `implement` phase.
 
 The spec template's four mandatory sections are `User Scenarios & Testing`,
 `Requirements`, `Success Criteria`, and `Assumptions`. User stories are

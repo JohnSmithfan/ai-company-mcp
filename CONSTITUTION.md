@@ -56,8 +56,8 @@ must stay at 100%.
 Product-facing files are English; working documents may use the reviewer's language;
 identifiers are never translated. UTF-8 without BOM, LF line endings, 2-space
 indent (4 for Python), no absolute user paths, no spaces in filenames. No
-invented owner handles, emails, badges, or statistics — placeholders are listed
-in the README publishing checklist.
+invented owner handles, emails, badges, or statistics — settled values are
+recorded in the README publishing checklist; do not invent the remaining ones.
 
 ## 7. No cruft
 
