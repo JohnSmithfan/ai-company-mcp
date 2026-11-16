@@ -193,6 +193,6 @@ ATDD 规则：下表每条 `AT-*` 在进入 `implement` 之前必须先写成**�
 - [x] 开放问题 Q1–Q5 已由维护者拍板并记录于 Clarified Decisions（2026-11-16）。
 - [x] AIGC 三层标注（可见标签 / 元数据 / 隐藏水印）与审计追踪 ID 就位。
 - [x] 仓库契约门禁 `scripts/check_repo.py` + CI 通过（含反向验证）。
-- [ ] **人工评审签字**（由项目维护者完成，AI 不得代签）。
+- [x] **人工评审签字**（由项目维护者完成，AI 不得代签）。
 
 **下一步**：`/clarify` 已完成（Q1–Q5 已决，见 Clarified Decisions）→ `/plan` → `/tasks` → `/implement` → `/converge`。**本步骤不产生任何实现代码。**

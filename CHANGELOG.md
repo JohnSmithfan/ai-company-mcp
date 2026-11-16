@@ -8,6 +8,20 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- SDD Step 3: `specs/001-core-mcp-server/plan.md` — architecture layers,
+  data design (five-profile department registry), key mechanisms
+  (deterministic routing, elicitation approval gate, in-memory audit,
+  PII masking, error-code contract), FR→component and AT→test-layer
+  mappings, sandbox fixture strategy, and risk register. Awaiting human
+  architecture review before `/tasks`.
+- Technical decisions (maintainer instruction, 2026-11-16): runtime
+  support targets Node 20 LTS + 22 LTS (`engines >=20 <23`); executable
+  tests use `node:test` + `node:assert` with zero third-party test
+  dependencies; v0.1 ships source-only (no npm publication; clone +
+  build). The protocol-version list in the plan is sourced from the
+  official MCP Versioning page (snapshot 2026-11-16): `2024-11-05`,
+  `2025-03-26`, `2025-06-18`, `2025-11-25` (Final) and `2026-07-28`
+  (Current); drafts are excluded.
 - SDD Step 0: `CONSTITUTION.md` with seven non-negotiable principles.
 - SDD Step 1: `specs/001-core-mcp-server/spec.md` — 15 `FR-*`, 12 `AT-*`,
   three prioritized user stories, and success criteria (open questions Q1–Q5
