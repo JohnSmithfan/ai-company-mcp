@@ -8,6 +8,21 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Converged follow-up (2026-11-17): closes the two measurement-scope
+  findings recorded during the convergence review and adds end-to-end
+  validation. `scripts/bench-cold-start.mjs` (npm run bench, CI ubuntu
+  step) measures a real subprocess cold start against SC-001's
+  p95 < 200 ms claim, closing the in-process-measurement gap without
+  touching the AT-006 zero-subprocess sandbox contract (the scripts run
+  outside the node:test suite). `scripts/e2e-stdio-client.mjs` (npm run
+  e2e, CI ubuntu step) drives the built server over a real stdio process
+  boundary with 11 assertions (discovery, tool list, route + fallback,
+  read-only rejection, resources, prompt, approval token, unknown
+  method). `.vscode/mcp.json` registers the server with VS Code's MCP
+  client for human host validation. CONTRIBUTING.md now requires the
+  failing test to be committed separately from the implementation
+  (machine-verifiable red state); v0.1 is noted as the historical
+  exception.
 - SDD converge round 2 (2026-11-17): `Converged` reached. The repository was
   published at `JohnSmithfan/ai-company-mcp` (Q4 decision); the first CI run
   is 7/7 jobs green (contract-gate plus the 6-cell os x Node 20/22 matrix),

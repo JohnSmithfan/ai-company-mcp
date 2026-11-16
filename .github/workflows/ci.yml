@@ -65,5 +65,13 @@ jobs:
       - name: Sandbox static scan
         run: npm run sandbox:scan
 
+      - name: SC-001 cold-start bench (ubuntu only)
+        if: matrix.os == 'ubuntu-latest'
+        run: npm run bench
+
+      - name: End-to-end stdio validation (ubuntu only)
+        if: matrix.os == 'ubuntu-latest'
+        run: npm run e2e
+
       - name: Run acceptance tests (AT-001..AT-012)
         run: npm run test

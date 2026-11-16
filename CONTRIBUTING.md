@@ -13,7 +13,11 @@ Read [CONSTITUTION.md](CONSTITUTION.md) and
    `FR-*` requirement in `specs/*/spec.md`.
 2. **Red first.** Every `AT-*` acceptance scenario becomes a failing executable
    test before implementation. A PR that turns a test green without showing the
-   red state will be asked for evidence.
+   red state will be asked for evidence. Commit the failing test in its own
+   commit (`test: <AT-NNN> red-first ...`) before the implementing commit —
+   the red state must be machine-verifiable from history, not self-reported.
+   (v0.1 shipped before this rule: its RED state is a process record in the
+   convergence report, not an independent commit.)
 3. **Humans own the spec.** Coding agents must not edit `specs/`,
    `CONSTITUTION.md`, or the acceptance contract. Spec changes need maintainer
    review.

@@ -41,6 +41,16 @@ SDD：规格是契约，先写规格再写实现。ATDD：每条 `FR-*` 至少�
 python -B scripts/check_repo.py --root .
 ```
 
+运行与验证（Node 20/22 LTS）：
+
+```bash
+npm install && npm test        # 65 个测试用例，覆盖 AT-001..AT-012
+npm run build && npm run bench # SC-001 冷启动基准（真实子进程，p95 < 200ms）
+npm run build && npm run e2e   # 端到端 stdio 验证（真实进程边界）
+```
+
+在 VS Code 中作为真实 MCP 宿主使用：打开本仓库后 `.vscode/mcp.json` 会注册 `ai-company-mcp` 服务器（先 `npm run build`），在 Copilot Chat 的 MCP 面板启动即可调用 `company.route` 等工具。
+
 ## 发布前待办
 
 仓库已发布为 `JohnSmithfan/ai-company-mcp`；维护者联系渠道（GitHub 私信 / 报告内容功能私下联系 `@JohnSmithfan`）与 `.github/CODEOWNERS` 已于 2026-11-16 确定（详见规格说明书 Clarified Decisions）。清单：

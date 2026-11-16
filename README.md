@@ -51,6 +51,18 @@ and `company.spec.validate` will make that contract callable.
 | `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `SUPPORT.md` | GitHub community health files |
 | `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md` | Contribution templates |
 | `.github/CODEOWNERS` | Code ownership (maintainer `@JohnSmithfan`) |
+| `src/`, `test/` | v0.1 implementation and the executable `AT-001..AT-012` suite (`npm test`) |
+| `scripts/bench-cold-start.mjs` | SC-001 cold-start benchmark (`npm run build && npm run bench`) |
+| `scripts/e2e-stdio-client.mjs` | End-to-end stdio validation over a real process boundary (`npm run build && npm run e2e`) |
+| `.vscode/mcp.json` | One-click host registration for VS Code's MCP client (run `npm run build` first) |
+
+Run and validate (Node 20/22 LTS):
+
+```bash
+npm install && npm test        # 65 test cases covering AT-001..AT-012
+npm run build && npm run bench # SC-001 cold-start benchmark (real subprocess, p95 < 200 ms)
+npm run build && npm run e2e   # end-to-end stdio validation over a real process boundary
+```
 
 ## Development workflow
 

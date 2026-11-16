@@ -60,7 +60,7 @@ npm run sandbox:scan → 13 files scanned, 0 violations（exit 0）
 
 | SC | 内容 | 证据 | 状态 |
 | --- | --- | --- | --- |
-| SC-001 | 四次发现调用 p95 < 200 ms | `at001` 测试内断言（含 SC-001 用例），本轮通过。**测量口径说明**：测试为进程内测量（p95 取 4 样本最大值），非 spec 语义的 CI runner 进程冷启动；最终 `Converged` 前以 ubuntu CI 格实测为准 | 达成（本地，口径见注） |
+| SC-001 | 四次发现调用 p95 < 200 ms | 双重证据：`at001` 测试内进程内断言（冒烟）；**收敛后补充的真实冷启动基准** `scripts/bench-cold-start.mjs`（§7），CI ubuntu 格实测 | 达成（口径已闭合，见 §7） |
 | SC-002 | 路由 100 次字节级一致 | `at003` 测试断言，本轮通过 | 达成 |
 | SC-003 | 红灯先行 | RED 记录（§2）+ commit `492c6b7` 历史 | 达成 |
 | SC-004 | 零网络/零 LLM/零写盘/零子进程 | §3 双层防护证据 | 达成 |
@@ -81,3 +81,14 @@ npm run sandbox:scan → 13 files scanned, 0 violations（exit 0）
 **`Converged`（2026-11-17，第 2 轮）**——D→FR→AT→测试名全链路机械核对通过；12 条 `AT-*` 本地 65/65 全绿；四零值沙箱证据在位；首次 CI 运行 7/7 job 全绿（SC-006）；社区规范清单 100%（SC-005）。SDD 六步全部完成，方法文档 DoD 全项满足。
 
 **遗留跟踪项（不影响 Converged）**：Dependabot 在首次推送后自动开立 3 个 actions 版本升级 PR（checkout/setup-node/setup-python 4→7），由维护者按正常流程评审合并。
+
+## 7. 收敛后补充验证（2026-11-17，同日）
+
+针对复审记录的两处口径偏差与端到端验证盲区，追加以下证据（均不触碰 AT-006 的套件级零子进程沙箱契约——新脚本运行在 `node:test` 套件之外）：
+
+| 项 | 内容 | 证据 |
+| --- | --- | --- |
+| SC-001 口径闭合 | 新增 `scripts/bench-cold-start.mjs`：真实子进程冷启动 + 四次 `server/discover` 实测，p95（4 样本最大值）< 200 ms；接线为 CI ubuntu 格独立步骤 | 本地实测冷启动 117.7 ms（非 linux 平台仅 advisory）；CI ubuntu 为权威口径 |
+| 端到端 stdio 验证 | 新增 `scripts/e2e-stdio-client.mjs`：以最小 MCP 宿主客户端驱动**真实进程边界**（子进程 + SDK `StdioServerTransport` 帧层），11 项断言——发现、工具清单、路由正/负路径（fallback + `NEEDS_CLARIFICATION`）、只读拒绝 `COMPANY_003`、双资源读取、提示模板、审批令牌、未知方法 `COMPANY_001`；接线为 CI ubuntu 格独立步骤 | 本地 PASS（11 断言）；E2E 过程中修正的两处断言均为脚本侧话术/键名笔误，服务器行为与单测一致 |
+| 真实宿主接入 | 新增 `.vscode/mcp.json`：VS Code MCP 客户端一键注册（stdio 启动、只读默认、micro 档）；人工激活验证由维护者在 VS Code 中执行 | 配置文件在仓，激活确认待维护者 |
+| RED 证据固化 | `CONTRIBUTING.md` 非协商项 2 增补：红灯测试必须独立提交（`test: <AT-NNN> red-first ...`），红灯状态须可从历史机器验证；注明 v0.1 为过程记录的历史例外 | CONTRIBUTING.md 增补段 |
