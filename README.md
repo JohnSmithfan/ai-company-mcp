@@ -2,7 +2,7 @@
 
 **A thin, protocol-first governance layer for AI virtual companies, exposed as an MCP server.**
 
-> **Status: SDD Step 5 — v0.1 implemented locally; all 12 `AT-*` tests green (CI matrix pending first run).** Run `npm install`, `npm test`.
+> **Status: SDD Step 6 — converge round 1: all 12 `AT-*` tests green locally with full traceability; awaiting first CI run after push (`Converged` pending external evidence).** Run `npm install`, `npm test`; see [the convergence report](specs/001-core-mcp-server/convergence-report.md).
 > Read [the spec](specs/001-core-mcp-server/spec.md) before proposing changes.
 > [简体中文说明](README.zh.md)
 
@@ -44,6 +44,7 @@ and `company.spec.validate` will make that contract callable.
 | `specs/001-core-mcp-server/spec.md` | **SDD Step 1 deliverable** — feature specification |
 | `specs/001-core-mcp-server/plan.md` | **SDD Step 3 deliverable** — implementation plan (architecture, decisions, risks) |
 | `specs/001-core-mcp-server/tasks.md` | **SDD Step 4 deliverable** — task breakdown, each task naming its `AT-*` |
+| `specs/001-core-mcp-server/convergence-report.md` | **SDD Step 6 deliverable** — convergence report (traceability, SC evidence, pending items) |
 | `scripts/check_repo.py` | CI contract gate: community files, encoding, FR→AT traceability |
 | `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `SUPPORT.md` | GitHub community health files |
 | `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md` | Contribution templates |
@@ -55,7 +56,7 @@ Spec-Kit-compatible SDD phases:
 
 ```
 constitution -> specify -> clarify -> plan -> tasks -> implement -> converge
-                 ^ you are here
+                                                                    ^ you are here
 ```
 
 Every functional requirement `FR-*` maps to at least one acceptance scenario

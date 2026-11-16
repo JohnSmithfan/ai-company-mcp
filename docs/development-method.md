@@ -17,12 +17,15 @@ tool-agnostic, so the phases below work with any coding agent.
 | 5 | Implement | `/speckit-implement` | Code + tests | All `AT-*` green |
 | 6 | Converge | `/speckit-converge` | Convergence report | Repeat 5–6 until `Converged` |
 
-**Current state: Step 5 (`implement`) executed on 2026-11-16** — the spec is
-signed off; clarify finished 2026-11-16; plan.md and tasks.md are the Step 3/4
-deliverables. All 12 `AT-*` scenarios have executable `node:test` tests named
-after their `AT-NNN` and are `GREEN` locally (CI matrix wiring landed with the
-same change). Next: `/converge` repeats implement–converge until the report
-says `Converged`.
+**Current state: Step 6 (`converge`) round 1 executed on 2026-11-17** — the
+spec is signed off; clarify/plan/tasks/implement are complete (implementation
+commit `492c6b7`). All 12 `AT-*` scenarios are `GREEN` locally with full
+traceability enforced by the gate (including the AT ↔ executable-test check
+added in this round). `specs/001-core-mcp-server/convergence-report.md`
+documents the evidence; the verdict is NOT YET `Converged` — the remaining
+gap is external evidence only (first CI run after pushing to GitHub, plus the
+repository-settings items tracked in the report's §5). Repeat implement–
+converge until the report says `Converged`.
 
 The spec template's four mandatory sections are `User Scenarios & Testing`,
 `Requirements`, `Success Criteria`, and `Assumptions`. User stories are

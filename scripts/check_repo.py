@@ -13,6 +13,7 @@ Enforces the mechanical parts of CONSTITUTION.md:
   - the SDD spec has all mandatory sections
   - every FR-* requirement is covered by the ATDD acceptance contract
   - AT-* IDs are unique and each scenario has Given/When/Then
+  - every AT-* has a matching executable test (test/atNNN-*.test.ts)
 
 Stdlib only. No network, no writes, no third-party dependencies.
 """
@@ -44,6 +45,7 @@ REQUIRED_FILES = (
     "specs/001-core-mcp-server/spec.md",
     "specs/001-core-mcp-server/plan.md",
     "specs/001-core-mcp-server/tasks.md",
+    "specs/001-core-mcp-server/convergence-report.md",
     "scripts/check_repo.py",
     ".github/ISSUE_TEMPLATE/bug_report.yml",
     ".github/ISSUE_TEMPLATE/feature_request.yml",
@@ -262,6 +264,27 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
             for keyword in ("Given", "When", "Then"):
                 if keyword not in line:
                     errors.append(f"scenario row missing {keyword}: {line[:60]}")
+
+    # Traceability (development-method.md section 4): once tests exist, every
+    # AT-* must have a matching executable test file named atNNN-*.test.ts.
+    test_dir = root / "test"
+    at_test_re = re.compile(r"^at(\d{3})-.*\.test\.ts$")
+    matched: set[str] = set()
+    known_at = set(at_ids)
+    if test_dir.is_dir():
+        for path in sorted(test_dir.glob("*.test.ts")):
+            match = at_test_re.match(path.name)
+            if not match:
+                continue
+            at_id = f"AT-{match.group(1)}"
+            if at_id not in known_at:
+                errors.append(f"test file names an unknown AT id: {path.name}")
+            else:
+                matched.add(at_id)
+    for at_id in sorted(known_at):
+        if at_id not in matched:
+            errors.append(f"no executable test found for: {at_id}")
+    stats["at_tests"] = len(matched)
 
     return errors, stats
 

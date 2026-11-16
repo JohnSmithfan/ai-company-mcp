@@ -8,6 +8,16 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- SDD Step 6 (round 1, 2026-11-17): `specs/001-core-mcp-server/
+  convergence-report.md` — full-chain traceability (D → FR → AT →
+  executable test) mechanically enforced by the gate, which now also
+  asserts that every `AT-*` has a matching `test/atNNN-*.test.ts` file
+  (reverse-verified: deleting a test file or injecting an unknown-AT
+  test file both fail the gate). All 12 `AT-*` scenarios are green
+  locally (65/65 tests, typecheck clean, sandbox scan 0 violations).
+  Verdict: NOT YET `Converged` — the remaining gap is external evidence
+  only (first CI matrix run after pushing to GitHub; Discussions and
+  private vulnerability reporting are repository-settings items).
 - SDD Step 5: v0.1 implementation executed on 2026-11-16 per the Step 4
   task breakdown (T-01~T-13). TypeScript + `@modelcontextprotocol/sdk`
   (SDK powers the stdio transport framing; the `2026-07-28` stateless
