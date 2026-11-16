@@ -2,7 +2,7 @@
 
 **A thin, protocol-first governance layer for AI virtual companies, exposed as an MCP server.**
 
-> **Status: SDD Step 4 — tasks broken down, no implementation yet.** The spec is signed off; [the plan](specs/001-core-mcp-server/plan.md) and [the task breakdown](specs/001-core-mcp-server/tasks.md) await human review.
+> **Status: SDD Step 5 — v0.1 implemented locally; all 12 `AT-*` tests green (CI matrix pending first run).** Run `npm install`, `npm test`.
 > Read [the spec](specs/001-core-mcp-server/spec.md) before proposing changes.
 > [简体中文说明](README.zh.md)
 

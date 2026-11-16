@@ -17,12 +17,12 @@ tool-agnostic, so the phases below work with any coding agent.
 | 5 | Implement | `/speckit-implement` | Code + tests | All `AT-*` green |
 | 6 | Converge | `/speckit-converge` | Convergence report | Repeat 5–6 until `Converged` |
 
-**Current state: Step 4 (`tasks`) in progress** — the Step 1 spec is signed off;
-Step 2 (`clarify`) finished on 2026-11-16; `specs/001-core-mcp-server/plan.md`
-is the Step 3 deliverable (awaiting its human architecture-review signature);
-`specs/001-core-mcp-server/tasks.md` is the Step 4 deliverable and awaits human
-review before `/implement`. No implementation code exists and none may be added
-before the `implement` phase.
+**Current state: Step 5 (`implement`) executed on 2026-11-16** — the spec is
+signed off; clarify finished 2026-11-16; plan.md and tasks.md are the Step 3/4
+deliverables. All 12 `AT-*` scenarios have executable `node:test` tests named
+after their `AT-NNN` and are `GREEN` locally (CI matrix wiring landed with the
+same change). Next: `/converge` repeats implement–converge until the report
+says `Converged`.
 
 The spec template's four mandatory sections are `User Scenarios & Testing`,
 `Requirements`, `Success Criteria`, and `Assumptions`. User stories are

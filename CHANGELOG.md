@@ -8,6 +8,19 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- SDD Step 5: v0.1 implementation executed on 2026-11-16 per the Step 4
+  task breakdown (T-01~T-13). TypeScript + `@modelcontextprotocol/sdk`
+  (SDK powers the stdio transport framing; the `2026-07-28` stateless
+  protocol core, per-request version negotiation, governance tools, and
+  the Streamable HTTP adapter are implemented in-repo — R-P1 verified:
+  SDK 1.32.x targets the handshake-era protocol only, latest declared
+  version `2025-11-25`). All 12 `AT-*` scenarios have executable
+  `node:test` tests named after their `AT-NNN` (63 test cases) and are
+  green locally; the sandbox enforces FR-006 with runtime interception
+  plus a static import scan wired into the contract gate; the CI matrix
+  (ubuntu/windows/macos x node 20/22) is wired in `.github/workflows/
+  ci.yml`. Build tooling (`typescript`, `@types/node`) is dev-only; the
+  zero-third-party-test-dependency decision (P-5) is unchanged.
 - SDD Step 4: `specs/001-core-mcp-server/tasks.md` — 13-task breakdown
   (T-01~T-13) covering all 12 `AT-*` scenarios exactly once, ordered
   red-first by user-story priority (US1 slice T-02~T-06, US2 T-07~T-09,
@@ -83,7 +96,9 @@ All notable changes to this project are documented here. Format follows
 
 ### Notes
 
-- No server implementation exists yet. `AT-*` scenarios are `RED-PENDING`.
+- No server has been published yet. All `AT-*` scenarios are `GREEN`
+  locally as of 2026-11-16; the Windows/Linux/macOS CI matrix result is
+  pending the first GitHub Actions run on the published repository.
 - Publishing placeholders filled on 2026-11-16 (maintainer instruction):
   repository `JohnSmithfan/ai-company-mcp`, maintainer contact channel in
   `CODE_OF_CONDUCT.md`, and `.github/CODEOWNERS`. Remaining publication

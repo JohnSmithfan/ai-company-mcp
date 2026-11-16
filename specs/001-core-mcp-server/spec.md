@@ -123,22 +123,22 @@
 
 ## ATDD Acceptance Contract
 
-ATDD 规则：下表每条 `AT-*` 在进入 `implement` 之前必须先写成**可执行且预期失败**的测试；测试转绿后方可声称该 FR 完成。Status 当前一律为 `RED-PENDING`（v0.1 尚未实现）。
+ATDD 规则：下表每条 `AT-*` 在进入 `implement` 之前必须先写成**可执行且预期失败**的测试；测试转绿后方可声称该 FR 完成。Status 现为 `GREEN`（2026-11-16，`/implement` 阶段 12 条可执行测试全部通过，测试名含对应 `AT-NNN`）。
 
 | Scenario | Covers | Given / When / Then | Test layer | Status |
 | --- | --- | --- | --- | --- |
-| AT-001 | FR-001, FR-011 | Given stdio 客户端 / When `server/discover`、携带已发布历史版本的请求与非法版本请求 / Then `supportedVersions` 含 `2026-07-28` 与全部受支持历史版本，历史版本可协商，非法版本被拒绝并列出支持范围 | protocol conformance | RED-PENDING |
-| AT-002 | FR-002, FR-010 | Given stdio 与 Streamable HTTP 两种传输 / When 列出三类原语并调用同一工具 / Then 结果一致 | dual-transport | RED-PENDING |
-| AT-003 | FR-003 | Given 固定任务描述 / When 调用 `company.route` 100 次 / Then 字节级一致且零 LLM 调用 | determinism | RED-PENDING |
-| AT-004 | FR-004 | Given 五档 profile（micro/small/medium/large/group）/ When 分别以各档配置读取 `company://departments` / Then 每档域/部门 slug 完整可解析且部门数分别为 2/5/9/18/36 | registry | RED-PENDING |
-| AT-005 | FR-005 | Given 无匹配关键词的输入 / When 路由 / Then `fallback` + `confidence: 0` | negative path | RED-PENDING |
-| AT-006 | FR-006 | Given 网络被阻断的测试夹具 / When 跑完整 v0.1 套件 / Then 零连接、零写盘、零子进程 | sandbox | RED-PENDING |
-| AT-007 | FR-007 | Given 变更型工具 / When 无 elicitation 批准令牌 / Then 拒绝且不执行 | approval gate | RED-PENDING |
-| AT-008 | FR-008 | Given 已批准调用 / When 执行完成 / Then 产出含 trace_id 与 AIGC 标注的 `AuditRecord` | audit | RED-PENDING |
-| AT-009 | FR-009 | Given 默认只读模式 / When 调用变更型工具 / Then `COMPANY_003` 且零写入 | read-only | RED-PENDING |
-| AT-010 | FR-012 | Given 合规与断链两份 spec / When `company.spec.validate` / Then `pass` 与逐条 `fail` | contract | RED-PENDING |
-| AT-011 | FR-013 | Given `prompts/get` 请求 / When 取 `department-brief` / Then 无外部工具调用指令 | prompt template | RED-PENDING |
-| AT-012 | FR-014, FR-015 | Given 异常与含 PII 输入 / When 处理 / Then 稳定错误码 + 已掩码输出 | error & privacy | RED-PENDING |
+| AT-001 | FR-001, FR-011 | Given stdio 客户端 / When `server/discover`、携带已发布历史版本的请求与非法版本请求 / Then `supportedVersions` 含 `2026-07-28` 与全部受支持历史版本，历史版本可协商，非法版本被拒绝并列出支持范围 | protocol conformance | GREEN |
+| AT-002 | FR-002, FR-010 | Given stdio 与 Streamable HTTP 两种传输 / When 列出三类原语并调用同一工具 / Then 结果一致 | dual-transport | GREEN |
+| AT-003 | FR-003 | Given 固定任务描述 / When 调用 `company.route` 100 次 / Then 字节级一致且零 LLM 调用 | determinism | GREEN |
+| AT-004 | FR-004 | Given 五档 profile（micro/small/medium/large/group）/ When 分别以各档配置读取 `company://departments` / Then 每档域/部门 slug 完整可解析且部门数分别为 2/5/9/18/36 | registry | GREEN |
+| AT-005 | FR-005 | Given 无匹配关键词的输入 / When 路由 / Then `fallback` + `confidence: 0` | negative path | GREEN |
+| AT-006 | FR-006 | Given 网络被阻断的测试夹具 / When 跑完整 v0.1 套件 / Then 零连接、零写盘、零子进程 | sandbox | GREEN |
+| AT-007 | FR-007 | Given 变更型工具 / When 无 elicitation 批准令牌 / Then 拒绝且不执行 | approval gate | GREEN |
+| AT-008 | FR-008 | Given 已批准调用 / When 执行完成 / Then 产出含 trace_id 与 AIGC 标注的 `AuditRecord` | audit | GREEN |
+| AT-009 | FR-009 | Given 默认只读模式 / When 调用变更型工具 / Then `COMPANY_003` 且零写入 | read-only | GREEN |
+| AT-010 | FR-012 | Given 合规与断链两份 spec / When `company.spec.validate` / Then `pass` 与逐条 `fail` | contract | GREEN |
+| AT-011 | FR-013 | Given `prompts/get` 请求 / When 取 `department-brief` / Then 无外部工具调用指令 | prompt template | GREEN |
+| AT-012 | FR-014, FR-015 | Given 异常与含 PII 输入 / When 处理 / Then 稳定错误码 + 已掩码输出 | error & privacy | GREEN |
 
 ## Success Criteria *(mandatory)*
 
