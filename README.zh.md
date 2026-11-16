@@ -2,7 +2,9 @@
 
 **把「AI 虚拟公司」的治理能力做成一个薄薄的 MCP Server。**
 
-> **当前状态：SDD 第 6 步 — 第 1 轮收敛：12 条 `AT-*` 测试本地全绿、追溯全链路机械核对通过；待推送后首次 CI 运行（`Converged` 差距仅为外部证据）。** 运行 `npm install`、`npm test`；详见[收敛报告](specs/001-core-mcp-server/convergence-report.md)。
+[![CI](https://github.com/JohnSmithfan/ai-company-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/JohnSmithfan/ai-company-mcp/actions/workflows/ci.yml)
+
+> **当前状态：SDD 全流程完成 — `Converged`（第 2 轮，2026-11-17）：12 条 `AT-*` 测试全绿，首次 CI 7 个 job 全绿（6 格矩阵），社区规范清单达成。** 运行 `npm install`、`npm test`；详见[收敛报告](specs/001-core-mcp-server/convergence-report.md)。
 > 修改前请先读 [spec.md](specs/001-core-mcp-server/spec.md)。
 > [English README](README.md)
 
@@ -28,7 +30,7 @@
 
 ```
 constitution -> specify -> clarify -> plan -> tasks -> implement -> converge
-                                                                    ^ 当前在第 6 步（第 1 轮收敛）
+                                                                    ^ 当前在第 6 步（SDD 已收官）
 ```
 
 SDD：规格是契约，先写规格再写实现。ATDD：每条 `FR-*` 至少对应一条 `AT-*`，每条 `AT-*` 在实现前必须是**预期失败的可执行测试**。详见 [docs/development-method.md](docs/development-method.md)。
@@ -41,12 +43,12 @@ python -B scripts/check_repo.py --root .
 
 ## 发布前待办
 
-仓库将发布为 `JohnSmithfan/ai-company-mcp`；维护者联系渠道（GitHub 私信 / 报告内容功能私下联系 `@JohnSmithfan`）与 `.github/CODEOWNERS` 已于 2026-11-16 确定（详见规格说明书 Clarified Decisions）。剩余待办：
+仓库已发布为 `JohnSmithfan/ai-company-mcp`；维护者联系渠道（GitHub 私信 / 报告内容功能私下联系 `@JohnSmithfan`）与 `.github/CODEOWNERS` 已于 2026-11-16 确定（详见规格说明书 Clarified Decisions）。清单：
 
 - [x] 填写 `CODE_OF_CONDUCT.md` 维护者联系渠道（2026-11-16）。
 - [x] 新增 `.github/CODEOWNERS`，写入真实维护者句柄（2026-11-16）。
-- [ ] 启用 GitHub Discussions 与私有漏洞上报通道。
-- [ ] 首次 CI 通过后补状态徽章。
+- [x] 启用 GitHub Discussions 与私有漏洞上报通道（2026-11-17）。
+- [x] 首次 CI 通过后补状态徽章（2026-11-17）。
 
 GitHub 社区规范清单要求：`README.md`、`LICENSE`、`CONTRIBUTING.md`、`CODE_OF_CONDUCT.md`、`SECURITY.md`、合法的 issue 模板与 PR 模板；`LICENSE` 不能从默认 `.github` 仓库继承，必须本仓自带。
 

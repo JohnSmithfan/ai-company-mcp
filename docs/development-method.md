@@ -17,15 +17,15 @@ tool-agnostic, so the phases below work with any coding agent.
 | 5 | Implement | `/speckit-implement` | Code + tests | All `AT-*` green |
 | 6 | Converge | `/speckit-converge` | Convergence report | Repeat 5–6 until `Converged` |
 
-**Current state: Step 6 (`converge`) round 1 executed on 2026-11-17** — the
-spec is signed off; clarify/plan/tasks/implement are complete (implementation
-commit `492c6b7`). All 12 `AT-*` scenarios are `GREEN` locally with full
-traceability enforced by the gate (including the AT ↔ executable-test check
-added in this round). `specs/001-core-mcp-server/convergence-report.md`
-documents the evidence; the verdict is NOT YET `Converged` — the remaining
-gap is external evidence only (first CI run after pushing to GitHub, plus the
-repository-settings items tracked in the report's §5). Repeat implement–
-converge until the report says `Converged`.
+**Current state: `Converged` (2026-11-17, converge round 2)** — all six SDD
+steps are complete: the spec is signed off, clarify/plan/tasks/implement
+delivered (implementation commit `492c6b7`), and the convergence report
+records full traceability plus SC-001..SC-006 evidence. All 12 `AT-*`
+scenarios are `GREEN` locally (65/65 tests) and the first CI run (run
+`43919484231`) is 7/7 jobs green across the 6-cell matrix. The repository is
+published at `JohnSmithfan/ai-company-mcp`; Discussions and private
+vulnerability reporting are enabled. Follow-up: merge the Dependabot
+actions-version PRs.
 
 The spec template's four mandatory sections are `User Scenarios & Testing`,
 `Requirements`, `Success Criteria`, and `Assumptions`. User stories are

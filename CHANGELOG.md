@@ -8,6 +8,15 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- SDD converge round 2 (2026-11-17): `Converged` reached. The repository was
+  published at `JohnSmithfan/ai-company-mcp` (Q4 decision); the first CI run
+  is 7/7 jobs green (contract-gate plus the 6-cell os x Node 20/22 matrix),
+  fulfilling SC-006. Discussions and private vulnerability reporting were
+  enabled via the GitHub API (SC-005 now 100%). CI badges were added to both
+  READMEs (badge URLs derived from the now-real repository and workflow, per
+  the no-fabrication rule). The convergence report's verdict was flipped to
+  `Converged` with per-item evidence; follow-up: merge the three Dependabot
+  actions-version PRs.
 - SDD Step 6 (round 1, 2026-11-17): `specs/001-core-mcp-server/
   convergence-report.md` — full-chain traceability (D → FR → AT →
   executable test) mechanically enforced by the gate, which now also
@@ -106,11 +115,10 @@ All notable changes to this project are documented here. Format follows
 
 ### Notes
 
-- No server has been published yet. All `AT-*` scenarios are `GREEN`
-  locally as of 2026-11-16; the Windows/Linux/macOS CI matrix result is
-  pending the first GitHub Actions run on the published repository.
-- Publishing placeholders filled on 2026-11-16 (maintainer instruction):
-  repository `JohnSmithfan/ai-company-mcp`, maintainer contact channel in
-  `CODE_OF_CONDUCT.md`, and `.github/CODEOWNERS`. Remaining publication
-  tasks (GitHub Discussions, private vulnerability reporting, status badges)
-  are tracked in the README publishing checklists.
+- All `AT-*` scenarios are `GREEN`; the first GitHub Actions run on the
+  published repository completed on 2026-11-17 with 7/7 jobs green
+  (run `43919484231`, contract-gate plus the 6-cell os x Node matrix).
+- Publishing items settled: repository `JohnSmithfan/ai-company-mcp`,
+  maintainer contact channel in `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS`
+  (2026-11-16), GitHub Discussions and private vulnerability reporting
+  enabled and CI badges added (2026-11-17) — see the README checklists.

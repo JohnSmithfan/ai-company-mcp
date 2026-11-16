@@ -2,7 +2,9 @@
 
 **A thin, protocol-first governance layer for AI virtual companies, exposed as an MCP server.**
 
-> **Status: SDD Step 6 — converge round 1: all 12 `AT-*` tests green locally with full traceability; awaiting first CI run after push (`Converged` pending external evidence).** Run `npm install`, `npm test`; see [the convergence report](specs/001-core-mcp-server/convergence-report.md).
+[![CI](https://github.com/JohnSmithfan/ai-company-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/JohnSmithfan/ai-company-mcp/actions/workflows/ci.yml)
+
+> **Status: SDD complete — `Converged` (round 2, 2026-11-17): all 12 `AT-*` tests green, first CI run 7/7 jobs green across the 6-cell matrix, community checklist complete.** Run `npm install`, `npm test`; see [the convergence report](specs/001-core-mcp-server/convergence-report.md).
 > Read [the spec](specs/001-core-mcp-server/spec.md) before proposing changes.
 > [简体中文说明](README.zh.md)
 
@@ -73,14 +75,14 @@ No runtime, package manager, or credentials are needed for this step.
 
 ## Before publishing to GitHub
 
-The repository will be published as `JohnSmithfan/ai-company-mcp`; the maintainer
+The repository is published as `JohnSmithfan/ai-company-mcp`; the maintainer
 contact channel (GitHub private contact, `@JohnSmithfan`) and `.github/CODEOWNERS`
-were settled on 2026-11-16 (see the spec's Clarified Decisions). Remaining items:
+were settled on 2026-11-16 (see the spec's Clarified Decisions). Checklist:
 
 - [x] Fill the maintainer contact channel in `CODE_OF_CONDUCT.md` (2026-11-16).
 - [x] Add `.github/CODEOWNERS` with the real maintainer handle (2026-11-16).
-- [ ] Enable GitHub Discussions (referenced by `SUPPORT.md`) and private vulnerability reporting (referenced by `SECURITY.md`).
-- [ ] Add CI/status badges after the first successful workflow run.
+- [x] Enable GitHub Discussions (referenced by `SUPPORT.md`) and private vulnerability reporting (referenced by `SECURITY.md`) (2026-11-17).
+- [x] Add CI/status badges after the first successful workflow run (2026-11-17).
 
 GitHub community profile checklist requires: `README.md`, `LICENSE`,
 `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, valid issue templates and

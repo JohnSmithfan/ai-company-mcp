@@ -6,13 +6,13 @@
 > **AI-generated content — human approval required for the report's verdict.**
 
 **Feature Branch**: `001-core-mcp-server`
-**Created**: 2026-11-17（SDD Step 6 / `/converge` 第 1 轮）
-**Status**: 第 1 轮收敛——本地证据全部齐备，`Converged` 尚未达成（待外部证据，见 §5）
+**Created**: 2026-11-17（第 1 轮）；同日第 2 轮更新为 `Converged`（见 §5）
+**Status**: `Converged`（第 2 轮，2026-11-17）——本地与外部证据全部齐备
 
 | 元数据（第 2 层） | 值 |
 | --- | --- |
 | 生成器 | WorkBuddy / Tencent Hunyuan Hy |
-| 审计追踪 ID | `AICM-SDD-20261117-CONVERGE-001` |
+| 审计追踪 ID | `AICM-SDD-20261117-CONVERGE-001`（第 2 轮：`AICM-SDD-20261117-CONVERGE-002`） |
 | 输入 | `spec.md`（15 FR / 12 AT）、`plan.md`（P-1~P-5）、`tasks.md`（T-01~T-13）、实现 commit `492c6b7` |
 | 复核状态 | 待人工复核 |
 
@@ -64,18 +64,20 @@ npm run sandbox:scan → 13 files scanned, 0 violations（exit 0）
 | SC-002 | 路由 100 次字节级一致 | `at003` 测试断言，本轮通过 | 达成 |
 | SC-003 | 红灯先行 | RED 记录（§2）+ commit `492c6b7` 历史 | 达成 |
 | SC-004 | 零网络/零 LLM/零写盘/零子进程 | §3 双层防护证据 | 达成 |
-| SC-005 | 社区规范清单 100% | 仓库内文件全部在位且受门禁守护；** Discussions 与私有漏洞上报为 GitHub 仓库设置项，待开通** | 部分达成（待仓库设置） |
-| SC-006 | CI 三平台 × Node 20/22 矩阵全绿 | 矩阵已接线（`.github/workflows/ci.yml`）；**仓库尚未推送，首次 CI 运行未发生** | 待首次 CI 运行 |
+| SC-005 | 社区规范清单 100% | 仓库内文件全部在位且受门禁守护；Discussions 已启用（API 确认 `has_discussions: true`）、私有漏洞上报已开启（PUT 返回 204），均为 2026-11-17 通过 GitHub API 完成的仓库设置 | 达成 |
+| SC-006 | CI 三平台 × Node 20/22 矩阵全绿 | 首次 CI 运行 run `43919484231`（push `f626727`）：7 个 job 全部 success——contract-gate + 6 格矩阵（ubuntu/windows/macos × node 20/22） | 达成 |
 
-## 5. `Converged` 差距清单（重复 5–6 轮次前的待办）
+## 5. `Converged` 差距清单（第 2 轮：已全部闭环）
 
-1. **推送仓库至 `JohnSmithfan/ai-company-mcp`**（Q4 决策），触发首次 CI：
-   - test-matrix 6 格全绿 → SC-006 达成；
-   - contract-gate job（含沙箱静态扫描）全绿。
-2. **GitHub 仓库设置**：启用 Discussions（`SUPPORT.md` 引用）、私有漏洞上报（`SECURITY.md` 引用）→ SC-005 补齐。
-3. **首次 CI 通过后**补双语 README 状态徽章（发布清单既有项）。
-4. 上述完成后重跑 `/converge`：若 §4 全表达成且门禁 PASS，报告 Status 改为 `Converged`。
+| 待办 | 完成证据（2026-11-17） |
+| --- | --- |
+| 推送仓库至 `JohnSmithfan/ai-company-mcp`（Q4 决策）并触发首次 CI | 仓库已创建并推送 main；run `43919484231` 7/7 job success（contract-gate + 6 格矩阵）→ SC-006 达成 |
+| GitHub 仓库设置：Discussions、私有漏洞上报 | API 确认 `has_discussions: true`；`private-vulnerability-reporting` PUT 204 → SC-005 补齐 |
+| 首次 CI 通过后补双语 README 状态徽章 | CI 徽章（`ci.yml` workflow）已加至 README.md 与 README.zh.md |
+| 重跑 `/converge` 并翻转 Status | 本节即第 2 轮，Status 已置为 `Converged` |
 
 ## 6. 结论
 
-第 1 轮收敛：**代码与测试侧无未决缺陷**——追溯全链路机械核对通过、12 条 AT 全绿、四零值证据在位、门禁（含本轮新增 AT↔测试断言及反向验证）通过。`Converged` 的唯一差距是**仓库未推送导致的外部证据缺口**（首次 CI 运行、仓库设置项）。按方法 Step 6「重复 5–6 直至 `Converged`」，在完成 §5 待办后进行第 2 轮收敛。
+**`Converged`（2026-11-17，第 2 轮）**——D→FR→AT→测试名全链路机械核对通过；12 条 `AT-*` 本地 65/65 全绿；四零值沙箱证据在位；首次 CI 运行 7/7 job 全绿（SC-006）；社区规范清单 100%（SC-005）。SDD 六步全部完成，方法文档 DoD 全项满足。
+
+**遗留跟踪项（不影响 Converged）**：Dependabot 在首次推送后自动开立 3 个 actions 版本升级 PR（checkout/setup-node/setup-python 4→7），由维护者按正常流程评审合并。
