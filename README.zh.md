@@ -2,7 +2,7 @@
 
 **把「AI 虚拟公司」的治理能力做成一个薄薄的 MCP Server。**
 
-> **当前状态：SDD 第 3 步 — 计划已产出，尚无实现代码。** 规格说明书已签字；[plan.md](specs/001-core-mcp-server/plan.md) 待架构评审。
+> **当前状态：SDD 第 4 步 — 任务已分解，尚无实现代码。** 规格说明书已签字；[plan.md](specs/001-core-mcp-server/plan.md) 与 [tasks.md](specs/001-core-mcp-server/tasks.md) 待人工评审。
 > 修改前请先读 [spec.md](specs/001-core-mcp-server/spec.md)。
 > [English README](README.md)
 

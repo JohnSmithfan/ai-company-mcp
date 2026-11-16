@@ -8,6 +8,12 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- SDD Step 4: `specs/001-core-mcp-server/tasks.md` — 13-task breakdown
+  (T-01~T-13) covering all 12 `AT-*` scenarios exactly once, ordered
+  red-first by user-story priority (US1 slice T-02~T-06, US2 T-07~T-09,
+  US3 T-10~T-11), with a traceability matrix (AT → task → FR → plan
+  section), CI matrix wiring (T-12) and convergence check (T-13). Awaits
+  human review before `/implement`; no implementation code exists.
 - SDD Step 3: `specs/001-core-mcp-server/plan.md` — architecture layers,
   data design (five-profile department registry), key mechanisms
   (deterministic routing, elicitation approval gate, in-memory audit,

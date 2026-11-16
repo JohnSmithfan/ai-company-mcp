@@ -43,6 +43,7 @@ REQUIRED_FILES = (
     "docs/research/competitive-analysis.md",
     "specs/001-core-mcp-server/spec.md",
     "specs/001-core-mcp-server/plan.md",
+    "specs/001-core-mcp-server/tasks.md",
     "scripts/check_repo.py",
     ".github/ISSUE_TEMPLATE/bug_report.yml",
     ".github/ISSUE_TEMPLATE/feature_request.yml",

@@ -2,7 +2,7 @@
 
 **A thin, protocol-first governance layer for AI virtual companies, exposed as an MCP server.**
 
-> **Status: SDD Step 3 — plan produced, no implementation yet.** The spec is signed off; [the plan](specs/001-core-mcp-server/plan.md) awaits architecture review.
+> **Status: SDD Step 4 — tasks broken down, no implementation yet.** The spec is signed off; [the plan](specs/001-core-mcp-server/plan.md) and [the task breakdown](specs/001-core-mcp-server/tasks.md) await human review.
 > Read [the spec](specs/001-core-mcp-server/spec.md) before proposing changes.
 > [简体中文说明](README.zh.md)
 
@@ -43,6 +43,7 @@ and `company.spec.validate` will make that contract callable.
 | `docs/research/competitive-analysis.md` | Competitor landscape and product decisions D1–D7 |
 | `specs/001-core-mcp-server/spec.md` | **SDD Step 1 deliverable** — feature specification |
 | `specs/001-core-mcp-server/plan.md` | **SDD Step 3 deliverable** — implementation plan (architecture, decisions, risks) |
+| `specs/001-core-mcp-server/tasks.md` | **SDD Step 4 deliverable** — task breakdown, each task naming its `AT-*` |
 | `scripts/check_repo.py` | CI contract gate: community files, encoding, FR→AT traceability |
 | `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `SUPPORT.md` | GitHub community health files |
 | `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md` | Contribution templates |
