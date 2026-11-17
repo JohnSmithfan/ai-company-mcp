@@ -110,6 +110,7 @@
 - **FR-013**: The server shall expose a `department-brief` prompt template containing no instructions that require external tools.
 - **FR-014**: The server shall return only documented, stable error codes from `company://error-codes`, never free-form exceptions.
 - **FR-015**: Where a task description contains PII-like patterns, the server shall mask them before they enter any audit record or response.
+- **FR-016**: When a handshake-era host sends an `initialize` request with a top-level `protocolVersion` on a stdio connection, then the server shall negotiate it against the supported version list, reply with a standard initialize result (`protocolVersion`, `capabilities`, `serverInfo`), and scope a per-connection session so that subsequent requests on that connection may omit the `_meta` declaration and inherit the negotiated version. Requests that carry an explicit `_meta` declaration keep FR-011 semantics unchanged; requests without any declaration on a connection without a completed handshake remain rejected per FR-011.（Clarified Decisions Q6，2026-11-17 维护者批准）
 
 ### Key Entities *(include if feature involves data)*
 
@@ -123,7 +124,7 @@
 
 ## ATDD Acceptance Contract
 
-ATDD 规则：下表每条 `AT-*` 在进入 `implement` 之前必须先写成**可执行且预期失败**的测试；测试转绿后方可声称该 FR 完成。Status 现为 `GREEN`（2026-11-16，`/implement` 阶段 12 条可执行测试全部通过，测试名含对应 `AT-NNN`）。
+ATDD 规则：下表每条 `AT-*` 在进入 `implement` 之前必须先写成**可执行且预期失败**的测试；测试转绿后方可声称该 FR 完成。AT-001~AT-012 现为 `GREEN`（2026-11-16，`/implement` 阶段测试全部通过，测试名含对应 `AT-NNN`）；AT-013 由 2026-11-17 的 FR-016 修订引入，按红灯先行规则独立提交后转绿。
 
 | Scenario | Covers | Given / When / Then | Test layer | Status |
 | --- | --- | --- | --- | --- |
@@ -139,6 +140,7 @@ ATDD 规则：下表每条 `AT-*` 在进入 `implement` 之前必须先写成**�
 | AT-010 | FR-012 | Given 合规与断链两份 spec / When `company.spec.validate` / Then `pass` 与逐条 `fail` | contract | GREEN |
 | AT-011 | FR-013 | Given `prompts/get` 请求 / When 取 `department-brief` / Then 无外部工具调用指令 | prompt template | GREEN |
 | AT-012 | FR-014, FR-015 | Given 异常与含 PII 输入 / When 处理 / Then 稳定错误码 + 已掩码输出 | error & privacy | GREEN |
+| AT-013 | FR-011, FR-016 | Given 握手时代宿主通过 stdio 连接 / When 发送 `initialize`（含合法/缺失/非法顶层 `protocolVersion`）并在握手完成后发送不带 `_meta` 声明的请求 / Then 合法版本返回标准 initialize 结果并建立会话，缺失或非法版本被拒绝，会话内无声明请求沿用协商版本，显式 `_meta` 声明与未握手连接的无声明请求行为不变 | protocol conformance | RED-PENDING |
 
 ## Success Criteria *(mandatory)*
 
@@ -169,6 +171,7 @@ ATDD 规则：下表每条 `AT-*` 在进入 `implement` 之前必须先写成**�
 | **Q3** 审计下沉方式 | 仅内存随响应返回，不做持久化下沉 | FR-008 + Assumptions |
 | **Q4** 仓库与联系渠道 | 仓库 `JohnSmithfan/ai-company-mcp`；CODEOWNERS 句柄 `JohnSmithfan`；CODE_OF_CONDUCT 联系渠道为「通过 GitHub 私信 / 报告内容功能私下联系维护者」 | Assumptions；`CODE_OF_CONDUCT.md`；`.github/CODEOWNERS` |
 | **Q5** 协议兼容范围 | 兼容 MCP 官方全部已发布历史版本，按宿主声明进行协议版本协商；`2026-07-28` 为主目标 | Protocol Target + FR-001/011 + AT-001 |
+| **Q6** 握手时代宿主兼容（2026-11-17 增补，维护者批准） | 真实宿主（VS Code MCP 客户端等同源 SDK 系）仍为握手时代：实测 SDK `Client` 发起 `initialize` 被无状态核心拒绝。批准新增 FR-016/AT-013：接受 `initialize` 握手并建立连接级会话，会话内无 `_meta` 声明请求沿用协商版本；显式声明与未握手连接语义不变 | FR-016 + AT-013 |
 
 > 决策来源：项目维护者于 2026-11-16 对 Q1–Q5 逐项给出指令，AI 仅负责记录与落实，未自行拍板。
 
