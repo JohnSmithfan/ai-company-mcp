@@ -8,6 +8,21 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Handshake-era host compatibility (FR-016 / AT-013, 2026-11-17, spec
+  amendment Q6 approved by the maintainer): a real `@modelcontextprotocol/sdk`
+  `Client` (same lineage as the VS Code MCP client) failed to connect against
+  the stateless core - `initialize` was rejected with COMPANY_002 - making the
+  published server unusable by handshake-era hosts. The server now negotiates
+  a handshake-era `initialize` (top-level `protocolVersion`), replies with a
+  standard initialize result, and scopes a per-connection session so
+  declaration-less requests on that connection inherit the negotiated version
+  (stdio transports; the HTTP adapter stays stateless). Explicit `_meta`
+  declarations and session-less connections keep FR-011 semantics unchanged.
+  Red-first: `test: AT-013 red-first` commit precedes the implementation
+  (machine-verifiable red via build failure). Verified: 71/71 tests, typecheck
+  clean, sandbox scan 0 violations, gate PASS (at_tests=13, requirements=16),
+  stdio E2E 11 assertions, and a real SDK `Client` now connects, lists tools,
+  and calls `company.route` successfully.
 - Converged follow-up (2026-11-17): closes the two measurement-scope
   findings recorded during the convergence review and adds end-to-end
   validation. `scripts/bench-cold-start.mjs` (npm run bench, CI ubuntu

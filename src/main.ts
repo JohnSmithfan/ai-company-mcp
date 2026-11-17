@@ -1,11 +1,13 @@
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { createDefaultConfig, processLine } from "./transport/stdio.js";
+import { createSession } from "./core/session.js";
 
 try {
   const config = createDefaultConfig();
+  const session = createSession();
   const transport = new StdioServerTransport();
   transport.onmessage = (message) => {
-    const out = processLine(JSON.stringify(message), config);
+    const out = processLine(JSON.stringify(message), config, session);
     if (out !== null) {
       void transport.send(JSON.parse(out)).catch(() => {});
     }

@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/JohnSmithfan/ai-company-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/JohnSmithfan/ai-company-mcp/actions/workflows/ci.yml)
 
-> **当前状态：SDD 全流程完成 — `Converged`（第 2 轮，2026-11-17）：12 条 `AT-*` 测试全绿，首次 CI 7 个 job 全绿（6 格矩阵），社区规范清单达成。** 运行 `npm install`、`npm test`；详见[收敛报告](specs/001-core-mcp-server/convergence-report.md)。
+> **当前状态：SDD 全流程完成 — `Converged`（第 2 轮，2026-11-17），同日完成增补循环：13 条 `AT-*` 测试全绿（FR-016 握手兼容，兼容 VS Code 等历史代宿主），社区规范清单达成。** 运行 `npm install`、`npm test`；详见[收敛报告](specs/001-core-mcp-server/convergence-report.md)。
 > 修改前请先读 [spec.md](specs/001-core-mcp-server/spec.md)。
 > [English README](README.md)
 
@@ -44,7 +44,7 @@ python -B scripts/check_repo.py --root .
 运行与验证（Node 20/22 LTS）：
 
 ```bash
-npm install && npm test        # 65 个测试用例，覆盖 AT-001..AT-012
+npm install && npm test        # 71 个测试用例，覆盖 AT-001..AT-013
 npm run build && npm run bench # SC-001 冷启动基准（真实子进程，p95 < 200ms）
 npm run build && npm run e2e   # 端到端 stdio 验证（真实进程边界）
 ```

@@ -15,13 +15,15 @@ function initializeError(response: { error?: { data?: Record<string, unknown> } 
 }
 
 test("AT-013: initialize with a supported legacy version returns a standard result", () => {
+  const session = createSession();
   const response = handleRequest(
     rpc(1, "initialize", {
       protocolVersion: "2025-11-25",
       capabilities: {},
       clientInfo: { name: "legacy-host", version: "1.0" }
     }),
-    config
+    config,
+    session
   )!;
   assert.ok(response.error === undefined, JSON.stringify(response.error));
   const result = response.result as Record<string, unknown>;
@@ -42,7 +44,8 @@ test("AT-013: initialize negotiates every published version", () => {
         capabilities: {},
         clientInfo: { name: "legacy-host", version: "1.0" }
       }),
-      config
+      config,
+      createSession()
     )!;
     assert.ok(response.error === undefined, JSON.stringify(response.error));
     assert.equal((response.result as Record<string, unknown>)["protocolVersion"], version);
@@ -52,7 +55,8 @@ test("AT-013: initialize negotiates every published version", () => {
 test("AT-013: initialize with a missing or unsupported top-level version is rejected", () => {
   const missing = handleRequest(
     rpc(3, "initialize", { capabilities: {}, clientInfo: { name: "legacy-host", version: "1.0" } }),
-    config
+    config,
+    createSession()
   );
   initializeError(missing);
   const unsupported = handleRequest(
@@ -61,9 +65,27 @@ test("AT-013: initialize with a missing or unsupported top-level version is reje
       capabilities: {},
       clientInfo: { name: "legacy-host", version: "1.0" }
     }),
-    config
+    config,
+    createSession()
   );
   initializeError(unsupported);
+});
+
+test("AT-013: a session-less connection (stateless transports) still rejects initialize", () => {
+  // On a session-less connection the FR-011 declaration check runs first and
+  // rejects uniformly: no successful handshake is possible, so stateless
+  // transports (HTTP) keep their stateless semantics.
+  const rejected = handleRequest(
+    rpc(11, "initialize", {
+      protocolVersion: "2025-11-25",
+      capabilities: {},
+      clientInfo: { name: "legacy-host", version: "1.0" }
+    }),
+    config
+  )!;
+  assert.ok(rejected.error, "expected an error response");
+  assert.equal(rejected.error.data?.["companyCode"], "COMPANY_002");
+  assert.match(rejected.error.message, /UnsupportedProtocolVersion/);
 });
 
 test("AT-013: after a handshake, session requests without _meta inherit the negotiated version", () => {

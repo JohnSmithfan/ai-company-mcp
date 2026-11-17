@@ -24,6 +24,10 @@ import {
   buildDepartmentBrief,
   DEPARTMENT_BRIEF_PROMPT_NAME
 } from "../prompts/department-brief.js";
+import {
+  negotiateHandshakeVersion,
+  type SessionState
+} from "./session.js";
 
 export interface ServerConfig {
   name: string;
@@ -292,11 +296,16 @@ export { MAX_INPUT_CHARS, type RoutingDecision };
 /**
  * Pure JSON-RPC entry point shared by every transport. Per-request protocol
  * version negotiation (FR-011) runs before dispatch; every error path is a
- * documented COMPANY_* code (FR-014).
+ * documented COMPANY_* code (FR-014). An optional per-connection session
+ * enables the handshake-era compatibility mode (FR-016): a completed
+ * `initialize` exchange lets declaration-less requests inherit the negotiated
+ * version, while explicit `_meta` declarations and session-less connections
+ * keep FR-011 semantics unchanged.
  */
 export function handleRequest(
   rawRequest: unknown,
-  config: ServerConfig
+  config: ServerConfig,
+  session?: SessionState
 ): JsonRpcResponseShape | null {
   if (typeof rawRequest !== "object" || rawRequest === null) {
     return new CompanyError(
@@ -331,7 +340,38 @@ export function handleRequest(
       typeof request.params === "object" && request.params !== null
         ? (request.params as Record<string, unknown>)
         : {};
-    negotiateProtocolVersion(params);
+    if (request.method === "initialize" && session !== undefined) {
+      // Handshake-era compatibility (FR-016): negotiate the top-level
+      // protocolVersion, remember it on the session, reply with a standard
+      // initialize result. Only supported published versions are accepted.
+      const negotiated = negotiateHandshakeVersion(params["protocolVersion"]);
+      if (session !== undefined) {
+        session.negotiatedVersion = negotiated;
+      }
+      return ok(id, {
+        protocolVersion: negotiated,
+        capabilities: {
+          tools: { listChanged: false },
+          resources: { subscribe: false },
+          prompts: { listChanged: false }
+        },
+        serverInfo: {
+          name: config.name,
+          version: config.version,
+          profile: config.profile
+        }
+      });
+    }
+    if (
+      params["_meta"] !== undefined ||
+      session?.negotiatedVersion === undefined
+    ) {
+      // FR-011: explicit declaration is mandatory-checked; a session without
+      // a completed handshake keeps rejecting declaration-less requests.
+      negotiateProtocolVersion(params);
+    }
+    // FR-016: session requests without a declaration inherit the negotiated
+    // version; nothing further to validate here.
     return dispatch(request.method, params, config, id);
   } catch (error) {
     if (error instanceof CompanyError) {

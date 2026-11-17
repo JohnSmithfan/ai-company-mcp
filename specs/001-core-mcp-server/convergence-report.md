@@ -92,3 +92,18 @@ npm run sandbox:scan → 13 files scanned, 0 violations（exit 0）
 | 端到端 stdio 验证 | 新增 `scripts/e2e-stdio-client.mjs`：以最小 MCP 宿主客户端驱动**真实进程边界**（子进程 + SDK `StdioServerTransport` 帧层），11 项断言——发现、工具清单、路由正/负路径（fallback + `NEEDS_CLARIFICATION`）、只读拒绝 `COMPANY_003`、双资源读取、提示模板、审批令牌、未知方法 `COMPANY_001`；接线为 CI ubuntu 格独立步骤 | 本地 PASS（11 断言）；E2E 过程中修正的两处断言均为脚本侧话术/键名笔误，服务器行为与单测一致 |
 | 真实宿主接入 | 新增 `.vscode/mcp.json`：VS Code MCP 客户端一键注册（stdio 启动、只读默认、micro 档）；人工激活验证由维护者在 VS Code 中执行 | 配置文件在仓，激活确认待维护者 |
 | RED 证据固化 | `CONTRIBUTING.md` 非协商项 2 增补：红灯测试必须独立提交（`test: <AT-NNN> red-first ...`），红灯状态须可从历史机器验证；注明 v0.1 为过程记录的历史例外 | CONTRIBUTING.md 增补段 |
+
+## 8. 增补循环：握手时代宿主兼容（2026-11-17，Q6 → FR-016 → AT-013）
+
+真实宿主验证发现缺陷：SDK 系真实 `Client`（与 VS Code MCP 客户端同源）对本服务器 `connect()` 失败——`initialize` 握手被无状态核心以 `COMPANY_002` 拒绝，**发布版服务器对主要受众不可用**。维护者于同日批准规格修订（Q6），按完整 SDD 内环执行：
+
+| 环节 | 内容 |
+| --- | --- |
+| 规格 | `FR-016`（握手兼容 + 连接级会话）+ `AT-013`（五组语义分支）+ tasks T-14 |
+| 红灯 | `test: AT-013 red-first` 独立提交（`npm test` 退出码 2：session 模块缺失 + handleRequest 参数不足，机器可验证）——首个符合新 CONTRIBUTING 规则的红灯证据 |
+| 实现 | `src/core/session.ts`（会话状态 + 握手协商）；`handleRequest` 增加可选会话参数与 `initialize` 分支；`serveStdio` 与 `main.ts` 两条 stdio 驱动路径接线；HTTP 适配器保持纯无状态 |
+| 绿灯证据 | 71/71 测试（+6）、typecheck 0 错、沙箱扫描 14 文件 0 违规、门禁 PASS（at_tests=13 / requirements=16）、stdio E2E 11 断言 |
+| 宿主连通 | **SDK 真实 `Client` `connect()` 成功**、`listTools` 返回 3 个治理工具、`callTool company.route` 正常执行 |
+| 语义守护 | 显式 `_meta` 声明与未握手连接的无声明请求行为不变（AT-001~AT-012 无回归）；HTTP 传输无状态语义不变 |
+
+结论：`Converged` 状态保持，服务器现在可被握手时代宿主（含 VS Code）接入；协议级真实宿主验证由「SDK Client 全握手往返 + 调用」替代人工点击完成，VS Code 侧的 UI 激活确认仍待维护者执行。

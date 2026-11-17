@@ -18,7 +18,7 @@
     "sandbox:scan": "node dist/src/sandbox/cli.js",
     "bench": "node scripts/bench-cold-start.mjs",
     "e2e": "node scripts/e2e-stdio-client.mjs",
-    "test": "npm run build && node --test dist/test/at001-discover-versions.test.js dist/test/at002-dual-transport.test.js dist/test/at003-determinism.test.js dist/test/at004-registry.test.js dist/test/at005-fallback.test.js dist/test/at006-sandbox.test.js dist/test/at007-approval.test.js dist/test/at008-audit.test.js dist/test/at009-readonly.test.js dist/test/at010-contract.test.js dist/test/at011-prompt.test.js dist/test/at012-errors-pii.test.js"
+    "test": "npm run build && node --test dist/test/at001-discover-versions.test.js dist/test/at002-dual-transport.test.js dist/test/at003-determinism.test.js dist/test/at004-registry.test.js dist/test/at005-fallback.test.js dist/test/at006-sandbox.test.js dist/test/at007-approval.test.js dist/test/at008-audit.test.js dist/test/at009-readonly.test.js dist/test/at010-contract.test.js dist/test/at011-prompt.test.js dist/test/at012-errors-pii.test.js dist/test/at013-handshake-compat.test.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.0"

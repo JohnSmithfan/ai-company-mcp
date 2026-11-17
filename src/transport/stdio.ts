@@ -4,14 +4,20 @@ import {
   handleRequest,
   type ServerConfig
 } from "../core/handlers.js";
+import { createSession, type SessionState } from "../core/session.js";
 import { DEFAULT_PROFILE, parseProfile } from "../registry/registry.js";
 import { ApprovalRegistry } from "../approval/approval.js";
 
 /**
  * stdio framing (FR-010): one JSON-RPC message per line. Returns the
- * response line, or null for notifications and blank lines.
+ * response line, or null for notifications and blank lines. A session
+ * (FR-016) may be supplied for connection-scoped handshake compatibility.
  */
-export function processLine(line: string, config: ServerConfig): string | null {
+export function processLine(
+  line: string,
+  config: ServerConfig,
+  session?: SessionState
+): string | null {
   const trimmed = line.trim();
   if (trimmed === "") {
     return null;
@@ -24,7 +30,7 @@ export function processLine(line: string, config: ServerConfig): string | null {
       new CompanyError("COMPANY_001", "line is not valid JSON").toJsonRpc(null)
     );
   }
-  const response = handleRequest(parsed, config);
+  const response = handleRequest(parsed, config, session);
   return response === null ? null : JSON.stringify(response);
 }
 
@@ -46,9 +52,10 @@ export function createDefaultConfig(): ServerConfig {
 }
 
 export async function serveStdio(config: ServerConfig): Promise<void> {
+  const session = createSession();
   const lines = createInterface({ input: process.stdin });
   for await (const line of lines) {
-    const out = processLine(line, config);
+    const out = processLine(line, config, session);
     if (out !== null) {
       process.stdout.write(`${out}\n`);
     }

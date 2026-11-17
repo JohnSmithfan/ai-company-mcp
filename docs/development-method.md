@@ -17,15 +17,16 @@ tool-agnostic, so the phases below work with any coding agent.
 | 5 | Implement | `/speckit-implement` | Code + tests | All `AT-*` green |
 | 6 | Converge | `/speckit-converge` | Convergence report | Repeat 5–6 until `Converged` |
 
-**Current state: `Converged` (2026-11-17, converge round 2)** — all six SDD
-steps are complete: the spec is signed off, clarify/plan/tasks/implement
-delivered (implementation commit `492c6b7`), and the convergence report
-records full traceability plus SC-001..SC-006 evidence. All 12 `AT-*`
-scenarios are `GREEN` locally (65/65 tests) and the first CI run (run
-`43919484231`) is 7/7 jobs green across the 6-cell matrix. The repository is
-published at `JohnSmithfan/ai-company-mcp`; Discussions and private
-vulnerability reporting are enabled. Follow-up: merge the Dependabot
-actions-version PRs.
+**Current state: `Converged` (2026-11-17, converge round 2) with a follow-up
+feature loop** — all six SDD steps are complete and the convergence report
+records full traceability plus SC-001..SC-006 evidence; the repository is
+published at `JohnSmithfan/ai-company-mcp` with CI 7/7 green. A second SDD
+loop ran the same day (real-host validation found that handshake-era hosts
+such as the VS Code MCP client could not connect): spec amendment Q6 added
+FR-016/AT-013 (handshake compatibility), delivered red-first (task T-14) with
+the failing test committed separately per the updated CONTRIBUTING rule. All
+13 `AT-*` scenarios are `GREEN` (71/71 tests), a real SDK `Client` connects,
+lists tools, and calls `company.route`.
 
 The spec template's four mandatory sections are `User Scenarios & Testing`,
 `Requirements`, `Success Criteria`, and `Assumptions`. User stories are
