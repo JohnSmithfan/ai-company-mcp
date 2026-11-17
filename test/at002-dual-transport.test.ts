@@ -14,7 +14,7 @@ const REQUESTS = [
   rpc(3, "prompts/list", { _meta: META }),
   rpc(4, "tools/call", {
     _meta: META,
-    name: "company.route",
+    name: "company_route",
     arguments: { taskDescription: "plan the q3 platform roadmap and ship the mobile release" }
   }),
   rpc(5, "resources/read", { _meta: META, uri: "company://departments" })

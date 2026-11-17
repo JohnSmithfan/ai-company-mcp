@@ -56,7 +56,7 @@ test("AT-012: empty task description is rejected with COMPANY_001", () => {
   const response = handleRequest(
     rpc(3, "tools/call", {
       _meta: META,
-      name: "company.route",
+      name: "company_route",
       arguments: { taskDescription: "   " }
     }),
     config
@@ -69,7 +69,7 @@ test("AT-012: oversized input (>100 KB) is rejected with COMPANY_001", () => {
   const response = handleRequest(
     rpc(4, "tools/call", {
       _meta: META,
-      name: "company.route",
+      name: "company_route",
       arguments: { taskDescription: "x".repeat(100 * 1024 + 1) }
     }),
     config
@@ -93,7 +93,7 @@ test("AT-012: route response carries masked input, never raw PII", () => {
   const response = handleRequest(
     rpc(5, "tools/call", {
       _meta: META,
-      name: "company.route",
+      name: "company_route",
       arguments: { taskDescription: "email alice@example.com about the roadmap" }
     }),
     config

@@ -104,9 +104,9 @@ const toolNames = (tools.result?.tools ?? []).map((t) => t.name);
 assert(
   JSON.stringify(toolNames.sort()) ===
     JSON.stringify([
-      "company.execute-decision",
-      "company.route",
-      "company.spec.validate"
+      "company_execute_decision",
+      "company_route",
+      "company_spec_validate"
     ]),
   "tools/list exposes exactly the three governance tools"
 );
@@ -114,13 +114,13 @@ assert(
 // 3. Routing a real task description end to end (group profile; "mobile" and
 // "app release" both map to the mobile department, so this routes uniquely).
 const route = await request(3, "tools/call", {
-  name: "company.route",
+  name: "company_route",
   arguments: { taskDescription: "ship the mobile app release train" }
 });
 const routeOut = route.result?.structuredContent;
 assert(
   routeOut?.decision === "route" && routeOut?.department === "mobile",
-  `company.route routes deterministically (department=${routeOut?.department})`
+  `company_route routes deterministically (department=${routeOut?.department})`
 );
 assert(
   typeof routeOut?.input_masked === "string" &&
@@ -130,7 +130,7 @@ assert(
 
 // 3b. Negative path over the real transport: unmatched input falls back.
 const fallback = await request(10, "tools/call", {
-  name: "company.route",
+  name: "company_route",
   arguments: { taskDescription: "xyzzy completely unmatched" }
 });
 const fallbackOut = fallback.result?.structuredContent;
@@ -146,7 +146,7 @@ assert(
 // The wire format is JSON-RPC numeric code with data.companyCode carrying
 // the documented COMPANY_* contract code (FR-014).
 const blocked = await request(4, "tools/call", {
-  name: "company.execute-decision",
+  name: "company_execute_decision",
   arguments: { action: "reorganize departments" }
 });
 assert(
@@ -182,7 +182,7 @@ assert(
 
 // 7. Elicitation endpoint exists for mutating tools.
 const elicitation = await request(8, "elicitation/create", {
-  tool: "company.execute-decision"
+  tool: "company_execute_decision"
 });
 assert(
   typeof elicitation.result?.token === "string" &&

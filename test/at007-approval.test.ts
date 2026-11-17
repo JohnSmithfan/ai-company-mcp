@@ -6,7 +6,7 @@ import { makeTestConfig, META, rpc } from "./helpers.js";
 
 installSandbox();
 
-const MUTATING_TOOL = "company.execute-decision";
+const MUTATING_TOOL = "company_execute_decision";
 
 function execute(
   config: ReturnType<typeof makeTestConfig>,
@@ -88,7 +88,7 @@ test("AT-007: host without elicitation support keeps the mutating tool unavailab
 test("AT-007: elicitation for an unknown tool is rejected", () => {
   const config = makeTestConfig({ readOnly: false });
   const issued = handleRequest(
-    rpc(5, "elicitation/create", { _meta: META, tool: "company.route" }),
+    rpc(5, "elicitation/create", { _meta: META, tool: "company_route" }),
     config
   )!;
   assert.ok(issued.error);

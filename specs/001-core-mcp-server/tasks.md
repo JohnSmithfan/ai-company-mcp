@@ -74,7 +74,7 @@ T-01 scaffold
 
 ### T-06 — 确定性路由（AT-003、AT-005，FR-003、FR-005）
 
-- **红灯**：`test/at003-determinism.test.ts`——固定输入调用 `company.route` 100 次，JSON 字节级一致且零 LLM 调用；`test/at005-fallback.test.ts`——无匹配关键词输入返回 `fallback` + `confidence: 0` + `NEEDS_CLARIFICATION` 标记，不臆造部门。
+- **红灯**：`test/at003-determinism.test.ts`——固定输入调用 `company_route` 100 次，JSON 字节级一致且零 LLM 调用；`test/at005-fallback.test.ts`——无匹配关键词输入返回 `fallback` + `confidence: 0` + `NEEDS_CLARIFICATION` 标记，不臆造部门。
 - **实现**：`src/routing/`——关键词精确匹配 → 唯一主部门 + 候选列表 + `confidence`；无随机源；路由范围受当前 profile 过滤（T-03）。
 - **依赖**：T-05。**完成标准**：AT-003/AT-005 GREEN；SC-002 达成。**里程碑：US1（P1）完整可独立交付。**
 
@@ -127,6 +127,13 @@ T-01 scaffold
 - **断言**：AT-013——合法顶层 `protocolVersion` 返回标准 initialize 结果并建立会话；缺失/非法版本拒绝并列出支持范围；会话内无声明请求沿用协商版本；显式 `_meta` 声明与未握手连接的无声明请求行为不变。
 - **依赖**：T-04（版本协商）、T-05（stdio 驱动）。**完成标准**：AT-013 GREEN，AT-001~AT-012 不回归。
 - **过程要求**：红灯测试独立提交（`test: AT-013 red-first`），实现随后独立提交（Converged 后 2026-11-17 增补循环）。
+
+### T-15 — 工具命名契约修订（无新 AT；Q7，2026-11-17 修订增补）
+
+- **产出**：三个治理工具更名（`company_route`、`company_spec_validate`、`company_execute_decision`），同步 FR-002/003/007/009/012 契约文本、实现（TOOLS/MUTATING_TOOLS/审批/审计）、全部 AT 测试、E2E 脚本与文档。行为零变更，仅契约标识符修订。
+- **依据**：VS Code 宿主实测（Q7）——握手成功后工具因点号命名被宿主全部拒绝。
+- **依赖**：T-14。**完成标准**：改名后全套测试/E2E/门禁绿，真实宿主工具注册成功。
+- **过程要求**：测试与 E2E 改名先行独立提交（红灯），实现随后独立提交。
 
 ## 2. 追溯矩阵
 

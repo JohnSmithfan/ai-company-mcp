@@ -49,7 +49,7 @@ npm run build && npm run bench # SC-001 冷启动基准（真实子进程，p95 
 npm run build && npm run e2e   # 端到端 stdio 验证（真实进程边界）
 ```
 
-在 VS Code 中作为真实 MCP 宿主使用：打开本仓库后 `.vscode/mcp.json` 会注册 `ai-company-mcp` 服务器（先 `npm run build`），在 Copilot Chat 的 MCP 面板启动即可调用 `company.route` 等工具。
+在 VS Code 中作为真实 MCP 宿主使用：打开本仓库后 `.vscode/mcp.json` 会注册 `ai-company-mcp` 服务器（先 `npm run build`），在 Copilot Chat 的 MCP 面板启动即可调用 `company_route` 等工具。
 
 ## 发布前待办
 

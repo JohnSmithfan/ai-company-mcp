@@ -14,7 +14,7 @@ function routeOnce(): string {
   const response = handleRequest(
     rpc(1, "tools/call", {
       _meta: META,
-      name: "company.route",
+      name: "company_route",
       arguments: { taskDescription: TASK }
     }),
     config

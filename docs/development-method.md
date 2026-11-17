@@ -26,7 +26,7 @@ such as the VS Code MCP client could not connect): spec amendment Q6 added
 FR-016/AT-013 (handshake compatibility), delivered red-first (task T-14) with
 the failing test committed separately per the updated CONTRIBUTING rule. All
 13 `AT-*` scenarios are `GREEN` (71/71 tests), a real SDK `Client` connects,
-lists tools, and calls `company.route`.
+lists tools, and calls `company_route`.
 
 The spec template's four mandatory sections are `User Scenarios & Testing`,
 `Requirements`, `Success Criteria`, and `Assumptions`. User stories are

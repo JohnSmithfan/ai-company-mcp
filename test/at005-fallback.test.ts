@@ -34,7 +34,7 @@ test("AT-005: fallback via tools/call carries the same semantics", () => {
   const response = handleRequest(
     rpc(1, "tools/call", {
       _meta: META,
-      name: "company.route",
+      name: "company_route",
       arguments: { taskDescription: UNMATCHED }
     }),
     config

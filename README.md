@@ -34,7 +34,7 @@ is in [docs/research/competitive-analysis.md](docs/research/competitive-analysis
 The short version: the organization layer is either a heavy self-hosted app or a
 folder of Markdown personas. Neither ships a lightweight, testable, protocol-level
 governance contract. SDD + ATDD are first-class here: the spec is the contract,
-and `company.spec.validate` will make that contract callable.
+and `company_spec_validate` will make that contract callable.
 
 ## Repository map
 

@@ -12,7 +12,7 @@ test("AT-009: default read-only mode rejects every mutating tool with COMPANY_00
   const response = handleRequest(
     rpc(1, "tools/call", {
       _meta: META,
-      name: "company.execute-decision",
+      name: "company_execute_decision",
       arguments: { action: "delete the draft page" }
     }),
     config
@@ -27,7 +27,7 @@ test("AT-009: read-only mode blocks execution even with an approval token", () =
   const issued = handleRequest(
     rpc(2, "elicitation/create", {
       _meta: META,
-      tool: "company.execute-decision"
+      tool: "company_execute_decision"
     }),
     config
   )!;
@@ -35,7 +35,7 @@ test("AT-009: read-only mode blocks execution even with an approval token", () =
   const response = handleRequest(
     rpc(3, "tools/call", {
       _meta: { ...META, approvalToken: token },
-      name: "company.execute-decision",
+      name: "company_execute_decision",
       arguments: { action: "delete the draft page" }
     }),
     config
@@ -49,7 +49,7 @@ test("AT-009: read tools still work in read-only mode", () => {
   const response = handleRequest(
     rpc(4, "tools/call", {
       _meta: META,
-      name: "company.route",
+      name: "company_route",
       arguments: { taskDescription: "review the platform roadmap" }
     }),
     config
