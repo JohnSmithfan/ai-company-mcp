@@ -38,11 +38,11 @@ export interface ServerConfig {
   elicitationSupported: boolean;
 }
 
-export const MUTATING_TOOLS = ["company.execute-decision"] as const;
+export const MUTATING_TOOLS = ["company_execute_decision"] as const;
 
 const TOOLS: Array<Record<string, unknown>> = [
   {
-    name: "company.route",
+    name: "company_route",
     description:
       "Deterministic department routing without any LLM call (FR-003/FR-005).",
     inputSchema: {
@@ -55,7 +55,7 @@ const TOOLS: Array<Record<string, unknown>> = [
     annotations: { readOnlyHint: true }
   },
   {
-    name: "company.spec.validate",
+    name: "company_spec_validate",
     description:
       "Validates a specification document against mandatory sections and FR/AT contract rules (FR-012).",
     inputSchema: {
@@ -66,7 +66,7 @@ const TOOLS: Array<Record<string, unknown>> = [
     annotations: { readOnlyHint: true }
   },
   {
-    name: "company.execute-decision",
+    name: "company_execute_decision",
     description:
       "Executes a routed decision (side-effecting). Requires read-write mode and an approval token from elicitation/create (FR-007/FR-009).",
     inputSchema: {
@@ -163,7 +163,7 @@ function callTool(
   const name = params["name"];
   const args = (params["arguments"] ?? {}) as Record<string, unknown>;
   const meta = (params["_meta"] ?? {}) as Record<string, unknown>;
-  if (name === "company.route") {
+  if (name === "company_route") {
     const description = args["taskDescription"];
     validateTaskInput(description);
     const decision = routeTask(
@@ -172,14 +172,14 @@ function callTool(
     );
     return toolResult(decision);
   }
-  if (name === "company.spec.validate") {
+  if (name === "company_spec_validate") {
     const spec = args["spec"];
     if (typeof spec !== "string") {
       throw new CompanyError("COMPANY_001", "spec must be a string");
     }
     return toolResult(validateSpec(spec));
   }
-  if (name === "company.execute-decision") {
+  if (name === "company_execute_decision") {
     if (config.readOnly) {
       throw new CompanyError(
         "COMPANY_003",
@@ -195,7 +195,7 @@ function callTool(
     if (
       !config.approvals.consume(
         meta["approvalToken"],
-        "company.execute-decision"
+        "company_execute_decision"
       )
     ) {
       throw new CompanyError(
@@ -206,7 +206,7 @@ function callTool(
     const masked = maskPii(
       typeof args["action"] === "string" ? args["action"] : ""
     );
-    const audit = createAuditRecord("company.execute-decision", "host", masked);
+    const audit = createAuditRecord("company_execute_decision", "host", masked);
     return toolResult({ executed: true, audit });
   }
   throw new CompanyError("COMPANY_001", `unknown tool: ${String(name)}`);

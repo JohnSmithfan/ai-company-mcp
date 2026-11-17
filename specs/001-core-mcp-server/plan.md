@@ -72,7 +72,7 @@ Governance Layer          Routing | ApprovalGate | Audit | SpecValidator
 | 只读默认 | 默认模式下任何变更型工具返回 `COMPANY_003`（ReadOnlyMode），零写入 | FR-009, AT-009 |
 | PII 掩码 | 邮箱 / 手机号样式正则识别，进入审计记录或响应前替换为掩码样式；正则清单随 `/tasks` 固化并纳入测试 | FR-015, AT-012 |
 | 错误码契约 | `company://error-codes` 资源提供唯一对外错误契约；初步枚举：`COMPANY_001` InvalidInput、`COMPANY_002` UnsupportedProtocolVersion、`COMPANY_003` ReadOnlyMode、`COMPANY_004` ApprovalRequired、`COMPANY_005` RegistryUnavailable（终稿在 `/tasks` 固化，新增须经 spec 修订） | FR-014, AT-012 |
-| 规范契约校验 | `company.spec.validate` 复用门禁同源规则：五强制章节、孤立 FR、重复 AT，结构化结果 | FR-012, AT-010, D5 |
+| 规范契约校验 | `company_spec_validate` 复用门禁同源规则：五强制章节、孤立 FR、重复 AT，结构化结果 | FR-012, AT-010, D5 |
 | 提示模板 | `department-brief` 为纯结构化模板，不含外部工具调用指令 | FR-013, AT-011 |
 
 ### 4.1 沙箱测试夹具（AT-006, SC-004）
@@ -94,7 +94,7 @@ Node 无内建网络防火墙，采用**双层防护**：① 运行时拦截—�
 | FR-009 | 只读默认模式（`COMPANY_003`） |
 | FR-010 | Transport Adapters（stdio + Streamable HTTP） |
 | FR-011 | Protocol Core（版本协商与拒绝） |
-| FR-012 | SpecValidator（`company.spec.validate`） |
+| FR-012 | SpecValidator（`company_spec_validate`） |
 | FR-013 | PromptTemplate（`department-brief`） |
 | FR-014 | ErrorCodes（`company://error-codes`） |
 | FR-015 | PiiMasker（掩码正则） |

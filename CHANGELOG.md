@@ -6,6 +6,22 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+### Changed
+
+- **BREAKING (identifier-only, no behavior change)**: tool names renamed
+  `company.route` → `company_route`, `company.spec.validate` →
+  `company_spec_validate`, `company.execute-decision` →
+  `company_execute_decision` (Q7, 2026-11-17, maintainer-approved). Real-host
+  validation found VS Code's MCP client rejects tool names outside
+  `[a-z0-9_-]`, so the dotted names never reached the chat agent despite a
+  successful handshake. v0.1 has no external consumers; a full rename beats
+  alias coexistence (aliases would leave invalid tools polluting the host
+  tool picker). Red-first: `test: tool-name contract amendment red-first`
+  commit precedes the implementation. Verified: 72/72 tests, typecheck clean,
+  sandbox scan 0 violations, gate PASS, stdio E2E 11 assertions, and a real
+  SDK `Client` lists the three renamed tools and calls `company_route`
+  successfully.
+
 ### Added
 
 - Handshake-era host compatibility (FR-016 / AT-013, 2026-11-17, spec
